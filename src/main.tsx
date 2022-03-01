@@ -1,0 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { AppContextProvider } from './components/context/AppContext';
+import './global.css';
+import Router from './Router';
+
+ReactDOM.render(
+	<React.StrictMode>
+		<AppContextProvider>
+			<Router />
+		</AppContextProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
+);
