@@ -11,11 +11,11 @@ export default function CreateClient() {
 
 	return (
 		<div>
-			{isFormShown && <CreateClientForm />}
-
 			<button onClick={handleCreateClientClick(isFormShown)}>
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
+
+			{isFormShown && <CreateClientForm />}
 		</div>
 	);
 }

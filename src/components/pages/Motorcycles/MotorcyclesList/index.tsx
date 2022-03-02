@@ -11,7 +11,7 @@ const MotorcyclesList = ({ motorcycles }: IMotorcyclesListProps) => {
 	return (
 		<div className="motorcycles-list-container">
 			{motorcycles.map(motorcycle => (
-				<Motorcycle motorcycle={motorcycle} />
+				<Motorcycle key={motorcycle.id} motorcycle={motorcycle} />
 			))}
 		</div>
 	);

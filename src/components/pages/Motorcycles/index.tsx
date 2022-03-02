@@ -1,5 +1,6 @@
 import { useAppContext } from '../../../context/AppContext';
 import MotorcyclesList from './MotorcyclesList';
+import CreateMotorcycle from './CreateMotorcycle';
 
 const Motorcycles = () => {
 	const { motorcycles } = useAppContext();
@@ -8,6 +9,8 @@ const Motorcycles = () => {
 			<h1>Motorcycles</h1>
 
 			<MotorcyclesList motorcycles={motorcycles} />
+
+			<CreateMotorcycle />
 		</div>
 	);
 };
