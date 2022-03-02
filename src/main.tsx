@@ -6,9 +6,9 @@ import Router from './Router';
 
 ReactDOM.render(
 	<React.StrictMode>
-		{/* <AppContextProvider> */}
-		<Router />
-		{/* </AppContextProvider> */}
+		<AppContextProvider>
+			<Router />
+		</AppContextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

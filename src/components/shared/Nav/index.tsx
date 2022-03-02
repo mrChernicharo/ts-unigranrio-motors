@@ -1,8 +1,6 @@
-import * as React from 'react';
 import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
-import { capitalize } from '../../utils/functions';
-import './nav.css';
+import './nav.scss';
 
 const pages = [
 	{ path: '/', name: 'Home' },
@@ -14,11 +12,15 @@ const pages = [
 const Nav = () => {
 	return (
 		<div className="nav-container">
-			{pages.map(page => (
-				<Link key={nanoid()} to={page.path}>
-					<span>{page.name}</span>
-				</Link>
-			))}
+			<span>Unigranrio Motors</span>
+
+			<span>
+				{pages.map(page => (
+					<Link key={nanoid()} to={page.path}>
+						<span>{page.name}</span>
+					</Link>
+				))}
+			</span>
 		</div>
 	);
 };

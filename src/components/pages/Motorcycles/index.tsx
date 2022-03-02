@@ -1,8 +1,8 @@
-import useMotorcycles from '../../../hooks/useMotorcycles';
+import { useAppContext } from '../../../context/AppContext';
 import MotorcyclesList from './MotorcyclesList';
 
 const Motorcycles = () => {
-	const { motorcycles } = useMotorcycles();
+	const { motorcycles } = useAppContext();
 	return (
 		<div>
 			<h1>Motorcycles</h1>

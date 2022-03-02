@@ -10,7 +10,7 @@ export default function ClientsList({ clients }: IClientsListProps) {
 	return (
 		<div className="clients-list">
 			{clients.map(client => (
-				<Client client={client} />
+				<Client key={client.id} client={client} />
 			))}
 		</div>
 	);

@@ -1,17 +1,25 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
-import { IClient } from '../../../../../utils/interfaces';
+import { useAppContext } from '../../../../../context/AppContext';
+import { IClient, IPartialClient } from '../../../../../utils/interfaces';
+import { clientSchema } from '../../../../../utils/schemas';
 import TextField from '../../../../shared/TextField';
 
 export default function CreateClientForm() {
+	const { createClient } = useAppContext()
+
 	return (
 		<div>
 			<h5>Cadastrar Cliente</h5>
 
 			<Formik
 				initialValues={{ firstName: '', lastName: '', email: '' }}
+				validationSchema={clientSchema}
 				onSubmit={(values, actions) => {
 					console.log({ values, actions });
+
+					// const res = await actions.submitForm()
+					createClient(values)
 				}}
 			>
 				{({
@@ -21,23 +29,33 @@ export default function CreateClientForm() {
 					errors,
 					touched,
 					isValid,
-				}: FormikProps<Partial<IClient>>) => {
+				}: FormikProps<IPartialClient>) => {
 					return (
 						<Form>
 							<TextField
 								id={nanoid()}
 								name="firstName"
-								error={!!errors.firstName && touched.firstName}
+								label="Nome"
+								placeholder="Nome"
+								error={Boolean(errors.firstName && touched.firstName)}
+								errorMessage={errors.firstName}
 							/>
 							<TextField
 								id={nanoid()}
 								name="lastName"
-								error={!!errors.lastName && touched.lastName}
+								placeholder="Sobrenome"
+								label="Sobrenome"
+								error={Boolean(errors.lastName && touched.lastName)}
+								errorMessage={errors.lastName}
+
 							/>
 							<TextField
 								id={nanoid()}
 								name="email"
-								error={!!errors.email && touched.email}
+								label="Email"
+								placeholder="email"
+								error={Boolean(errors.email && touched.email)}
+								errorMessage={errors.email}
 							/>
 
 							<button type="submit">Salvar</button>

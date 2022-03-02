@@ -1,0 +1,13 @@
+.nav-container {
+  border: 1px solid;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    display: inline-block;
+    margin-inline: 0.5rem;
+  }
+}
