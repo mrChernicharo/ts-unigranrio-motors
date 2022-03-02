@@ -1,0 +1,24 @@
+:root {
+	--modal-width: 450px;
+}
+
+.motorcycle-details-modal-container {
+	border: 1px solid;
+	width: var(--modal-width);
+	position: absolute;
+	z-index: 99999;
+	height: 400px;
+	top: 0;
+	left: 0;
+	transform: translate(calc(50vw - calc(var(--modal-width) / 2)), 50%);
+}
+
+.overlay {
+	background-color: rgba(62, 130, 139, 0.3);
+	width: 1000vw;
+	height: 1000vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+}

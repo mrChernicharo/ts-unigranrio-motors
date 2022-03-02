@@ -6,7 +6,7 @@ const Motorcycles = () => {
 	const { motorcycles } = useAppContext();
 	return (
 		<div>
-			<h1>Motorcycles</h1>
+			<h1>Motocicletas</h1>
 
 			<MotorcyclesList motorcycles={motorcycles} />
 

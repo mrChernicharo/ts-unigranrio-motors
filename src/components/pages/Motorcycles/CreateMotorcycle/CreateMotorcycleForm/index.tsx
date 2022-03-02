@@ -14,7 +14,7 @@ export default function CreateMotorcycleForm() {
 
 	return (
 		<div>
-			<h5>Cadastrar Motorcyclee</h5>
+			<h5>Cadastrar Moto</h5>
 
 			<Formik
 				initialValues={{
