@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { IClient, IMotorcycle } from './interfaces';
+import { IClient, IMotorcycle, ITransaction } from './interfaces';
 
 export const initialClients: IClient[] = [
 	{
@@ -46,5 +46,25 @@ export const initialMotorcycles: IMotorcycle[] = [
 		year: 2020,
 		price: 16_000,
 		imgURL: 'https://m.media-amazon.com/images/I/717woRDSH-L._AC_SL1200_.jpg',
+	},
+];
+
+export const initialTransactions: ITransaction[] = [
+	{
+		id: '4cQUHABNT_ewQhupe3Q21',
+		clientId: initialClients[2].id,
+		createdAt: new Date(2022, 2, 1, 22, 21, 32),
+		motorcycles: [{ id: initialMotorcycles[0].id, quantity: 1 }],
+		total: initialMotorcycles[0].price,
+	},
+	{
+		id: 'Thfr-ABNT_ewKU6leRruY',
+		clientId: initialClients[0].id,
+		createdAt: new Date(2022, 2, 2, 12, 14, 24),
+		motorcycles: [
+			{ id: initialMotorcycles[1].id, quantity: 1 },
+			{ id: initialMotorcycles[2].id, quantity: 2 },
+		],
+		total: initialMotorcycles[1].price + initialMotorcycles[2].price * 2,
 	},
 ];

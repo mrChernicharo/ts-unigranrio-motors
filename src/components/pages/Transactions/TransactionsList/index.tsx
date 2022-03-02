@@ -1,5 +1,18 @@
-// import './transaction-list.scss';
+import { ITransaction } from '../../../../utils/interfaces';
+import Transaction from './Transaction';
 
-export default function TransactionList() {
-	return <div className="container"></div>;
+// import './transaction-list.scss';
+interface IProps {
+	transactions: ITransaction[];
+}
+
+export default function TransactionList({ transactions }: IProps) {
+	console.log(transactions);
+	return (
+		<div className="container">
+			{transactions.map(transaction => (
+				<Transaction key={transaction.id} transaction={transaction} />
+			))}
+		</div>
+	);
 }

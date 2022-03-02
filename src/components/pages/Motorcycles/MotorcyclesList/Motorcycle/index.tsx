@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IMotorcycle } from '../../../../../utils/interfaces';
 import './motorcycle.scss';
-import MotorcycleDetails from './MotorcycleDetails';
+import MotorcycleDetails from '../../MotorcycleDetails';
 
 interface IMotorcycleProps {
 	motorcycle: IMotorcycle;

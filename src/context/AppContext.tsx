@@ -7,19 +7,27 @@ import {
 	useEffect,
 } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { initialClients, initialMotorcycles } from '../utils/constants';
+import {
+	initialClients,
+	initialMotorcycles,
+	initialTransactions,
+} from '../utils/constants';
 import {
 	IClient,
 	IMotorcycle,
 	IPartialClient,
 	IPartialMotorcycle,
+	IPartialTransaction,
+	ITransaction,
 } from '../utils/interfaces';
 
 interface AppContext {
 	clients: IClient[];
 	motorcycles: IMotorcycle[];
+	transactions: ITransaction[];
 	createClient: (clientData: IPartialClient) => void;
 	createMotorcycle: (motorcycleData: IPartialMotorcycle) => void;
+	createTransaction: (TransactionData: IPartialTransaction) => void;
 }
 interface IAppContextProviderProps {
 	children: ReactNode;
@@ -28,8 +36,10 @@ interface IAppContextProviderProps {
 const AppContext = createContext<AppContext>({
 	clients: [],
 	motorcycles: [],
+	transactions: [],
 	createClient: () => {},
 	createMotorcycle: () => {},
+	createTransaction: () => {},
 });
 
 export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
@@ -40,9 +50,13 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 	const [storedMotorcycles, setStoredMotorcycles] = useLocalStorage<
 		IMotorcycle[]
 	>('@motorcycles', initialMotorcycles);
+	const [storedTransactions, setStoredTransactions] = useLocalStorage<
+		ITransaction[]
+	>('@Transactions', []);
 
 	const [clients, setClients] = useState<IClient[]>([]);
 	const [motorcycles, setMotorcycles] = useState<IMotorcycle[]>([]);
+	const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
 	const createClient = (clientData: IPartialClient) => {
 		const newClient: IClient = { id: nanoid(), ...clientData };
@@ -60,16 +74,36 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setMotorcycles(updatedMotos);
 	};
 
+	const createTransaction = (transactionData: IPartialTransaction) => {
+		const newTransaction: ITransaction = {
+			id: nanoid(),
+			createdAt: new Date(),
+			...transactionData,
+		};
+		const updatedTransactions = [...transactions, newTransaction];
+		console.log(updatedTransactions);
+	};
+
 	useEffect(() => {
-		setClients(storedClients || initialClients);
-		setMotorcycles(storedMotorcycles || initialMotorcycles);
+		console.log(initialTransactions);
+		setClients((storedClients.length && storedClients) || initialClients);
+		setMotorcycles(
+			(storedMotorcycles.length && storedMotorcycles) ||
+				initialMotorcycles
+		);
+		setTransactions(
+			(storedTransactions.length && storedTransactions) ||
+				initialTransactions
+		);
 	}, []);
 
 	const context: AppContext = {
 		clients,
 		motorcycles,
+		transactions,
 		createClient,
 		createMotorcycle,
+		createTransaction,
 	};
 
 	return (

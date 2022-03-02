@@ -1,5 +1,5 @@
 import { FiX } from 'react-icons/fi';
-import { IMotorcycle } from '../../../../../../utils/interfaces';
+import { IMotorcycle } from '../../../../utils/interfaces';
 import './motorcycle-details.scss';
 
 interface IProps {
