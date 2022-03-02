@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode, useContext } from 'react';
-import { initialClients, initialMotorcycles } from '../../utils/constants';
-import { IClient, IMotorcycle } from '../../utils/interfaces';
+import { initialClients, initialMotorcycles } from '../utils/constants';
+import { IClient, IMotorcycle } from '../utils/interfaces';
 
 interface AppContext {
 	clients: IClient[];

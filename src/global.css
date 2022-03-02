@@ -1,3 +1,7 @@
+:root {
+	--normal-text: 12px;
+}
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -10,6 +14,18 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+* {
+	box-sizing: border-box;
+}
+h5 {
+	margin: 0;
+}
+
+p {
+	font-size: var(--normal-text);
+	margin: 0;
 }
 
 .App {
