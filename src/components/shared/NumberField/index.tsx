@@ -5,32 +5,31 @@ import './text-field.scss';
 interface Props {
 	id: string;
 	name: string;
-	placeholder?: string;
+	min: number;
+	value: number;
 	label?: string;
 	error?: boolean;
 	errorMessage?: string;
+	handleBlur: Function;
+	handleChange: Function;
 }
 
-const TextField = ({
+const NumberField = ({
 	label,
 	name,
 	id,
-	placeholder,
 	error,
+	min,
 	errorMessage,
+	value,
 }: Props) => {
 	return (
-		<div className="number-field-container">
+		<div className="Number-field-container">
 			<label htmlFor={name}>{capitalize(label || name)}</label>
-			<Field
-				id={id}
-				type="number"
-				name={name}
-				placeholder={placeholder}
-			/>
+			<input id={id} type="number" name={name} min={min} value={value} />
 			{error && <span className="error-message">{errorMessage}</span>}
 		</div>
 	);
 };
 
-export default TextField;
+export default NumberField;

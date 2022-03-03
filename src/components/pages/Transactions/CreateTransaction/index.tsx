@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
 import './create-transaction.scss';
-import CreateClientForm from './CreateClientForm';
+import CreateClientForm from './CreateTransactionForm';
 
 export default function CreateTransaction() {
 	const [isFormShown, setIsFormShown] = useState(false);

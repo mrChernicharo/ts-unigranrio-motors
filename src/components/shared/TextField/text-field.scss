@@ -1,18 +1,18 @@
-.text-field-container {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid;
+.number-field-container {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid;
 
-  label {
-    font-size: var(--normal-text);
-  }
+	label {
+		font-size: var(--normal-text);
+	}
 
-  input {
-    border-radius: 4px;
-  }
+	input {
+		border-radius: 4px;
+	}
 }
 
 .error-message {
-  font-size: var(--small-text);
-  color: var(--accent);
+	font-size: var(--small-text);
+	color: var(--accent);
 }

@@ -21,3 +21,13 @@ export const motorcycleSchema = Yup.object({
 		'insira uma url válida'
 	),
 });
+
+export const transactionSchema = Yup.object().shape({
+	clientId: Yup.string().required('Nome é obrigatório'),
+	motorcycles: Yup.array().of(
+		Yup.object().shape({
+			id: Yup.string().required(),
+			quantity: Yup.number().integer().min(1).required(),
+		})
+	),
+});

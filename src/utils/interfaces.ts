@@ -27,4 +27,7 @@ export interface ITransaction {
 	createdAt: Date;
 }
 
-export type IPartialTransaction = Omit<ITransaction, 'id' | 'createdAt'>;
+export type IPartialTransaction = Omit<
+	ITransaction,
+	'id' | 'createdAt' | 'total'
+>;
