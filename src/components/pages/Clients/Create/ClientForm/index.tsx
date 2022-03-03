@@ -5,31 +5,33 @@ import { IClient, IPartialClient } from '../../../../../utils/interfaces';
 import { clientSchema } from '../../../../../utils/schemas';
 import TextField from '../../../../shared/TextField';
 
-export default function CreateClientForm() {
-	const { createClient } = useAppContext()
+interface IClientFormProps {
+	mode: 'create' | 'edit';
+	client?: IClient;
+}
+export default function CreateClientForm({ mode, client }: IClientFormProps) {
+	const { createClient } = useAppContext();
 
 	return (
 		<div>
 			<h5>Cadastrar Cliente</h5>
 
 			<Formik
-				initialValues={{ firstName: '', lastName: '', email: '' }}
+				initialValues={{
+					firstName: client?.firstName || '',
+					lastName: client?.lastName || '',
+					email: client?.email || '',
+				}}
 				validationSchema={clientSchema}
 				onSubmit={(values, actions) => {
 					console.log({ values, actions });
 
 					// const res = await actions.submitForm()
-					createClient(values)
+					createClient(values);
 				}}
+				enableReinitialize={true}
 			>
-				{({
-					values,
-					isValidating,
-					isSubmitting,
-					errors,
-					touched,
-					isValid,
-				}: FormikProps<IPartialClient>) => {
+				{({ errors, touched }: FormikProps<IPartialClient>) => {
 					return (
 						<Form>
 							<TextField
@@ -37,7 +39,9 @@ export default function CreateClientForm() {
 								name="firstName"
 								label="Nome"
 								placeholder="Nome"
-								error={Boolean(errors.firstName && touched.firstName)}
+								error={Boolean(
+									errors.firstName && touched.firstName
+								)}
 								errorMessage={errors.firstName}
 							/>
 							<TextField
@@ -45,9 +49,10 @@ export default function CreateClientForm() {
 								name="lastName"
 								placeholder="Sobrenome"
 								label="Sobrenome"
-								error={Boolean(errors.lastName && touched.lastName)}
+								error={Boolean(
+									errors.lastName && touched.lastName
+								)}
 								errorMessage={errors.lastName}
-
 							/>
 							<TextField
 								id={nanoid()}
@@ -66,3 +71,13 @@ export default function CreateClientForm() {
 		</div>
 	);
 }
+
+// initialValues={
+// 	mode === 'create' && !client
+// 		? { firstName: '', lastName: '', email: '' }
+// 		: {
+// 				firstName: client?.firstName,
+// 				lastName: client?.lastName,
+// 				email: client?.firstName,
+// 		  }
+// }

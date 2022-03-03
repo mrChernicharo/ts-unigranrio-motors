@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
-import CreateClientForm from './CreateClientForm';
+import CreateClientForm from './ClientForm';
 
 export default function CreateClient() {
 	const [isFormShown, setIsFormShown] = useState(false);
@@ -15,7 +15,7 @@ export default function CreateClient() {
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 
-			{isFormShown && <CreateClientForm />}
+			{isFormShown && <CreateClientForm mode="create" />}
 		</div>
 	);
 }

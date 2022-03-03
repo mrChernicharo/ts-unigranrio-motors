@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IClient } from '../../../../utils/interfaces';
-import Client from './Client';
+import Client from './ClientItem';
 
 interface IClientsListProps {
 	clients: IClient[];
