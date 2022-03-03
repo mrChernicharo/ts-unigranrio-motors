@@ -12,6 +12,7 @@ import {
 	initialMotorcycles,
 	initialTransactions,
 } from '../utils/constants';
+import { calcTotal } from '../utils/functions';
 import {
 	IClient,
 	IMotorcycle,
@@ -20,6 +21,8 @@ import {
 	IPartialTransaction,
 	ITransaction,
 } from '../utils/interfaces';
+
+
 
 interface AppContext {
 	clients: IClient[];
@@ -37,9 +40,9 @@ const AppContext = createContext<AppContext>({
 	clients: [],
 	motorcycles: [],
 	transactions: [],
-	createClient: () => {},
-	createMotorcycle: () => {},
-	createTransaction: () => {},
+	createClient: () => { },
+	createMotorcycle: () => { },
+	createTransaction: () => { },
 });
 
 export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
@@ -78,6 +81,7 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		const newTransaction: ITransaction = {
 			id: nanoid(),
 			createdAt: new Date(),
+			total: calcTotal(),
 			...transactionData,
 		};
 		const updatedTransactions = [...transactions, newTransaction];
@@ -89,11 +93,11 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setClients((storedClients.length && storedClients) || initialClients);
 		setMotorcycles(
 			(storedMotorcycles.length && storedMotorcycles) ||
-				initialMotorcycles
+			initialMotorcycles
 		);
 		setTransactions(
 			(storedTransactions.length && storedTransactions) ||
-				initialTransactions
+			initialTransactions
 		);
 	}, []);
 

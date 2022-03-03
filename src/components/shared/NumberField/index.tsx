@@ -6,7 +6,6 @@ interface Props {
 	id: string;
 	name: string;
 	min: number;
-	value: number;
 	label?: string;
 	error?: boolean;
 	errorMessage?: string;
@@ -21,12 +20,11 @@ const NumberField = ({
 	error,
 	min,
 	errorMessage,
-	value,
 }: Props) => {
 	return (
 		<div className="Number-field-container">
 			<label htmlFor={name}>{capitalize(label || name)}</label>
-			<input id={id} type="number" name={name} min={min} value={value} />
+			<input id={id} type="number" name={name} min={min} />
 			{error && <span className="error-message">{errorMessage}</span>}
 		</div>
 	);
