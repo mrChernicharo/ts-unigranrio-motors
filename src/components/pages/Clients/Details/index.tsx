@@ -26,16 +26,20 @@ export default function ClientDetails({ client, onClose, onDelete }: IProps) {
 					<FiTrash />
 				</button>
 
-				<button onClick={() => setEditingMode(true)}>
-					<FiEdit />
-				</button>
-
 				{editingMode ? (
 					<>
+						<button onClick={() => setEditingMode(false)}>
+							<FiX />
+						</button>
+
 						<ClientForm mode="edit" client={client} />
 					</>
 				) : (
 					<>
+						<button onClick={() => setEditingMode(true)}>
+							<FiEdit />
+						</button>
+
 						<h5>
 							{capitalize(firstName)} {capitalize(lastName)}
 						</h5>

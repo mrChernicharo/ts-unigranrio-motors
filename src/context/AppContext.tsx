@@ -27,6 +27,7 @@ interface AppContext {
 	motorcycles: IMotorcycle[];
 	transactions: ITransaction[];
 	createClient: (clientData: IPartialClient) => void;
+	updateClient: (clientData: IClient) => void;
 	createMotorcycle: (motorcycleData: IPartialMotorcycle) => void;
 	createTransaction: (TransactionData: IPartialTransaction) => void;
 }
@@ -39,15 +40,14 @@ const AppContext = createContext<AppContext>({
 	motorcycles: [],
 	transactions: [],
 	createClient: () => {},
+	updateClient: () => {},
 	createMotorcycle: () => {},
 	createTransaction: () => {},
 });
 
 export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
-	const [storedClients, setStoredClients] = useLocalStorage<IClient[]>(
-		'@clients',
-		initialClients
-	);
+	//prettier-ignore
+	const [storedClients, setStoredClients] = useLocalStorage<IClient[]>('@clients',initialClients);
 	const [storedMotorcycles, setStoredMotorcycles] = useLocalStorage<
 		IMotorcycle[]
 	>('@motorcycles', initialMotorcycles);
@@ -87,6 +87,14 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setTransactions(updatedTransactions);
 	};
 
+	const updateClient = (clientData: IClient) => {
+		console.log('update ', clientData);
+		const { id } = clientData;
+		setClients(
+			clients.map(client => (client.id === id ? clientData : client))
+		);
+	};
+
 	useEffect(() => {
 		console.log(initialTransactions);
 		setClients((storedClients.length && storedClients) || initialClients);
@@ -105,6 +113,7 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		motorcycles,
 		transactions,
 		createClient,
+		updateClient,
 		createMotorcycle,
 		createTransaction,
 	};

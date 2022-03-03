@@ -10,7 +10,10 @@ interface IClientFormProps {
 	client?: IClient;
 }
 export default function CreateClientForm({ mode, client }: IClientFormProps) {
-	const { createClient } = useAppContext();
+	const { createClient, updateClient } = useAppContext();
+
+	let clientID = '';
+	if (mode === 'edit' && client) clientID = client.id;
 
 	return (
 		<div>
@@ -26,8 +29,9 @@ export default function CreateClientForm({ mode, client }: IClientFormProps) {
 				onSubmit={(values, actions) => {
 					console.log({ values, actions });
 
-					// const res = await actions.submitForm()
-					createClient(values);
+					if (mode === 'create') createClient(values);
+					if (mode === 'edit')
+						updateClient({ ...values, id: clientID });
 				}}
 				enableReinitialize={true}
 			>
