@@ -18,7 +18,7 @@ export default function Motorcycle({ motorcycle }: IMotorcycleProps) {
 		setIsModalOpen(false);
 	};
 
-	useEffect(() => console.log(isModalOpen), [isModalOpen]);
+	// useEffect(() => console.log(isModalOpen), [isModalOpen]);
 
 	return (
 		<div className="motorcycle-container" onClick={handleDetailsModalOpen}>
