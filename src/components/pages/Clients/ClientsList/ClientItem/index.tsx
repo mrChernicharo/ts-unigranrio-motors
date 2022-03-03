@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IClient } from '../../../../../utils/interfaces';
-import ClientDetails from '../../Details';
+import ClientDetails from '../../ClientDetails';
 
 interface IClientProps {
 	client: IClient;

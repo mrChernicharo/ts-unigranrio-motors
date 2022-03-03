@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useAppContext } from '../../../context/AppContext';
 import ClientsList from './ClientsList';
-import CreateClient from './Create';
-import ClientDetails from './Details';
+import CreateClient from './ClientCreate';
+import ClientDetails from './ClientDetails';
 
 const Clients = () => {
 	const { clients } = useAppContext();

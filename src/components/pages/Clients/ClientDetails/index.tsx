@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
 import { capitalize } from '../../../../utils/functions';
 import { IClient } from '../../../../utils/interfaces';
-import ClientForm from '../Create/ClientForm';
+import ClientForm from '../ClientForm';
 import './client-details.scss';
 
 interface IProps {

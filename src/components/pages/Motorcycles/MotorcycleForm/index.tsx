@@ -1,16 +1,20 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
-import { useAppContext } from '../../../../../context/AppContext';
-import {
-	IMotorcycle,
-	IPartialMotorcycle,
-} from '../../../../../utils/interfaces';
-import { motorcycleSchema } from '../../../../../utils/schemas';
-import TextField from '../../../../shared/TextField';
-import './create-motorcycle-form.scss';
+import { useAppContext } from '../../../../context/AppContext';
+import { IMotorcycle, IPartialMotorcycle } from '../../../../utils/interfaces';
+import { motorcycleSchema } from '../../../../utils/schemas';
+import TextField from '../../../shared/TextField';
+import './motorcycle-form.scss';
 
-export default function CreateMotorcycleForm() {
-	const { createMotorcycle } = useAppContext();
+interface IMotorcyclesFormProps {
+	motorcycle?: IMotorcycle;
+}
+
+export default function MotorcycleForm({ motorcycle }: IMotorcyclesFormProps) {
+	const { createMotorcycle, updateMotorcycle } = useAppContext();
+
+	let motoId = '';
+	if (motorcycle) motoId = motorcycle.id;
 
 	return (
 		<div>
@@ -18,18 +22,19 @@ export default function CreateMotorcycleForm() {
 
 			<Formik
 				initialValues={{
-					name: '',
-					description: '',
-					year: 2022,
-					price: 0,
-					imgURL: '',
+					name: motorcycle?.name || '',
+					description: motorcycle?.description || '',
+					year: motorcycle?.year || 2022,
+					price: motorcycle?.price || 0,
+					imgURL: motorcycle?.imgURL || '',
 				}}
 				validationSchema={motorcycleSchema}
 				onSubmit={(values, actions) => {
 					console.log({ values, actions });
 
 					// const res = await actions.submitForm()
-					createMotorcycle(values);
+					if (motoId) updateMotorcycle({ ...values, id: motoId });
+					if (!motoId) createMotorcycle(values);
 				}}
 			>
 				{({

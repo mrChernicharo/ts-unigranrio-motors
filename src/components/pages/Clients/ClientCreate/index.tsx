@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
-import CreateClientForm from './ClientForm';
+import CreateClientForm from '../ClientForm';
 
 export default function CreateClient() {
 	const [isFormShown, setIsFormShown] = useState(false);

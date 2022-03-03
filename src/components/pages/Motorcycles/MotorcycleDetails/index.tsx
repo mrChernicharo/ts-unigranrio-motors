@@ -1,5 +1,7 @@
-import { FiX } from 'react-icons/fi';
+import { useState } from 'react';
+import { FiEdit, FiEdit2, FiEdit3, FiX } from 'react-icons/fi';
 import { IMotorcycle } from '../../../../utils/interfaces';
+import MotorcycleForm from '../MotorcycleForm';
 import './motorcycle-details.scss';
 
 interface IProps {
@@ -9,6 +11,8 @@ interface IProps {
 export default function MotorcycleDetails({ motorcycle, onClose }: IProps) {
 	const { name, description, year, price, imgURL } = motorcycle;
 
+	const [editingMode, setEditingMode] = useState(false);
+
 	return (
 		<>
 			<div className="motorcycle-details-modal-container">
@@ -16,14 +20,28 @@ export default function MotorcycleDetails({ motorcycle, onClose }: IProps) {
 					<FiX />
 				</button>
 
-				<h5>
-					{name}
-					<p>{year}</p>
-				</h5>
-				<p>{description}</p>
+				{editingMode ? (
+					<>
+						<button onClick={() => setEditingMode(false)}>
+							<FiX />
+						</button>
+						<MotorcycleForm motorcycle={motorcycle} />
+					</>
+				) : (
+					<>
+						<button onClick={() => setEditingMode(true)}>
+							<FiEdit />
+						</button>
+						<h5>
+							{name}
+							<p>{year}</p>
+						</h5>
+						<p>{description}</p>
 
-				<img src={imgURL} />
-				<p>R${price}</p>
+						<img src={imgURL} />
+						<p>R${price}</p>
+					</>
+				)}
 			</div>
 
 			<div className="overlay" onClick={onClose}></div>

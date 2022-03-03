@@ -1,9 +1,9 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
-import { useAppContext } from '../../../../../context/AppContext';
-import { IClient, IPartialClient } from '../../../../../utils/interfaces';
-import { clientSchema } from '../../../../../utils/schemas';
-import TextField from '../../../../shared/TextField';
+import { useAppContext } from '../../../../context/AppContext';
+import { IClient, IPartialClient } from '../../../../utils/interfaces';
+import { clientSchema } from '../../../../utils/schemas';
+import TextField from '../../../shared/TextField';
 
 interface IClientFormProps {
 	mode: 'create' | 'edit';

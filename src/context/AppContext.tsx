@@ -26,9 +26,13 @@ interface AppContext {
 	clients: IClient[];
 	motorcycles: IMotorcycle[];
 	transactions: ITransaction[];
+
 	createClient: (clientData: IPartialClient) => void;
 	updateClient: (clientData: IClient) => void;
+
 	createMotorcycle: (motorcycleData: IPartialMotorcycle) => void;
+	updateMotorcycle: (motorcycleData: IMotorcycle) => void;
+
 	createTransaction: (TransactionData: IPartialTransaction) => void;
 }
 interface IAppContextProviderProps {
@@ -42,6 +46,7 @@ const AppContext = createContext<AppContext>({
 	createClient: () => {},
 	updateClient: () => {},
 	createMotorcycle: () => {},
+	updateMotorcycle: () => {},
 	createTransaction: () => {},
 });
 
@@ -95,6 +100,14 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		);
 	};
 
+	const updateMotorcycle = (motorcycleData: IMotorcycle) => {
+		console.log('update', motorcycleData);
+		const { id } = motorcycleData;
+		setMotorcycles(
+			motorcycles.map(moto => (moto.id === id ? motorcycleData : moto))
+		);
+	};
+
 	useEffect(() => {
 		console.log(initialTransactions);
 		setClients((storedClients.length && storedClients) || initialClients);
@@ -115,6 +128,7 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		createClient,
 		updateClient,
 		createMotorcycle,
+		updateMotorcycle,
 		createTransaction,
 	};
 

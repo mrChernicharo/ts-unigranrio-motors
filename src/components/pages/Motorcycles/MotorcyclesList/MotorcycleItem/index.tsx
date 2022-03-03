@@ -6,7 +6,7 @@ import MotorcycleDetails from '../../MotorcycleDetails';
 interface IMotorcycleProps {
 	motorcycle: IMotorcycle;
 }
-export default function Motorcycle({ motorcycle }: IMotorcycleProps) {
+export default function MotorcycleItem({ motorcycle }: IMotorcycleProps) {
 	const { name, description, year, price, imgURL } = motorcycle;
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

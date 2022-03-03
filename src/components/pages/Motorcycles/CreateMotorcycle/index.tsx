@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
-import CreateMotorcycleForm from './CreateMotorcycleForm';
+import CreateMotorcycleForm from '../MotorcycleForm';
 
 export default function CreateMotorcycle() {
 	const [isFormShown, setIsFormShown] = useState(false);
