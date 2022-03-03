@@ -22,12 +22,7 @@ const TextField = ({
 	return (
 		<div className="number-field-container">
 			<label htmlFor={name}>{capitalize(label || name)}</label>
-			<Field
-				id={id}
-				type="number"
-				name={name}
-				placeholder={placeholder}
-			/>
+			<Field id={id} type="text" name={name} placeholder={placeholder} />
 			{error && <span className="error-message">{errorMessage}</span>}
 		</div>
 	);

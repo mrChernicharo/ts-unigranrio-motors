@@ -1,180 +1,193 @@
-import { Field, FieldProps, Form, Formik, FormikProps } from "formik";
-import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
-import { FiPlus, FiTrash, FiX } from "react-icons/fi";
-import { useAppContext } from "../../../../../context/AppContext";
+import {
+	ErrorMessage,
+	Field,
+	FieldArray,
+	Form,
+	Formik,
+	FormikProps,
+} from 'formik';
+import { nanoid } from 'nanoid';
+import { useEffect, useState } from 'react';
+import { FiTrash } from 'react-icons/fi';
+import { useAppContext } from '../../../../../context/AppContext';
 import {
 	ITransaction,
 	IPartialTransaction,
-	ITransactionMotorcycle,
-} from "../../../../../utils/interfaces";
-import { transactionSchema } from "../../../../../utils/schemas";
+} from '../../../../../utils/interfaces';
+import { transactionSchema } from '../../../../../utils/schemas';
 import DropdownField, {
 	IDropdownOption,
-} from "../../../../shared/DropdownField";
-import NumberField from "../../../../shared/NumberField";
-import TextField from "../../../../shared/TextField";
-import "./create-transaction-form.scss";
+} from '../../../../shared/DropdownField';
+import NumberField from '../../../../shared/NumberField';
+import TextField from '../../../../shared/TextField';
+import './create-transaction-form.scss';
 
 export default function CreateTransactionForm() {
 	const { clients, motorcycles, createTransaction } = useAppContext();
 
-	const [clientOpts, setClientOpts] = useState<IDropdownOption[]>([]);
-	const [motorcycleOpts, setMotorcycleOpts] = useState<IDropdownOption[]>([]);
-	const [motorcycleFields, setMotorcycleFields] = useState<
-		ITransactionMotorcycle[]
-	>([]);
-
-	const handleAddMotorcycleField = () => {
-		setMotorcycleFields([...motorcycleFields, { id: "", quantity: 1 }]);
-	};
-	const handleRemoveMotorcycleField = (index: number) => (e: any) => {
-		if (motorcycleFields.length) {
-			setMotorcycleFields(motorcycleFields.filter((moto, i) => i !== index));
-		}
-	};
-
-	useEffect(() => {
-		setClientOpts(
-			clients.map((client) => ({
-				id: client.id,
-				name: `${client.firstName} ${client.lastName}`,
-				value: client.id,
-			}))
-		);
-	}, [clients]);
-
-	useEffect(() => {
-		setMotorcycleOpts(
-			motorcycles.map((motorcycle) => ({
-				id: motorcycle.id,
-				name: motorcycle.name,
-				value: motorcycle.id,
-			}))
-		);
-	}, [motorcycles]);
+	const [clientOpts, setClientOpts] = useState<IDropdownOption[]>([
+		{ id: '', name: '', value: '' },
+		...clients.map(client => ({
+			id: client.id,
+			name: `${client.firstName} ${client.lastName}`,
+			value: client.id,
+		})),
+	]);
+	const [motorcycleOpts, setMotorcycleOpts] = useState<IDropdownOption[]>([
+		{ id: '', name: '', value: '' },
+		...motorcycles.map(motorcycle => ({
+			id: motorcycle.id,
+			name: motorcycle.name,
+			value: motorcycle.id,
+		})),
+	]);
 
 	return (
-		<div className="create-transaction-form-container">
+		<>
 			<h5>Cadastrar Venda</h5>
 
 			<Formik
 				initialValues={{
-					clientId: "",
-					motorcycles: [],
+					clientId: '',
+					motorcycles: [{ id: 'fuehfw9328hh89hawe8fh', quantity: 1 }],
 				}}
 				validationSchema={transactionSchema}
 				onSubmit={(values, actions) => {
-					console.log("createTransaction!", { values, actions });
+					console.log('createTransaction!', { values, actions });
 					// createTransaction(values);
 				}}
 			>
 				{({
-					values,
-					isValidating,
-					isSubmitting,
 					errors,
-					touched,
-					isValid,
+					values,
 					handleBlur,
 					handleChange,
-				}: FormikProps<any>) => {
+				}: FormikProps<IPartialTransaction>) => {
+					// console.log(values);
 					return (
-						<>
-							<Form>
-								<DropdownField
-									id={nanoid()}
-									name="client"
-									label="Cliente"
-									options={clientOpts}
-									onChange={(e) => {
-										console.log(e);
-									}}
-								/>
+						<Form>
+							{console.log(errors)}
 
-								<div>
-									{motorcycleFields.map((field, i) => (
-										<div key={nanoid()}>
-											<Field name="motorcycles">
-												{({ form }: FieldProps) => {
-													// console.log({ i, field, form })
-													return (
-														<>
-															<DropdownField
-																id={nanoid()}
-																name={`motorcycles[${i}].id`}
-																label="Motocicleta"
-																options={motorcycleOpts}
-																onChange={handleChange}
-															/>
+							<div className="error-message">
+								{errors.clientId}
+							</div>
+							<DropdownField
+								id={nanoid()}
+								name="clientId"
+								label="Cliente"
+								placeholder="Selecione o cliente"
+								options={clientOpts}
+								onChange={handleChange}
+							/>
 
-															<NumberField
-																id={nanoid()}
-																name={`motorcycles[${i}].quantity`}
-																label="Quantidade"
-																min={1}
-																handleBlur={handleBlur}
-																handleChange={handleChange}
-															// value={values.quantity}
-															/>
-
-															<button
-																type="button"
-																onClick={handleRemoveMotorcycleField(i)}
+							<FieldArray name="motorcycles">
+								{arrayHelpers => {
+									// console.log(arrayHelpers);
+									return (
+										<div className="motorcycles-list">
+											{values?.motorcycles?.length > 0 ? (
+												<>
+													{values.motorcycles.map(
+														(moto, i) => (
+															<div
+																key={nanoid()}
+																className="transaction-item"
 															>
-																<FiTrash />
-															</button>
-														</>
-													)
-												}}
-											</Field>
+																<ErrorMessage
+																	name={`motorcycles[${i}].id`}
+																/>
+																<h5>
+																	{
+																		motorcycleOpts.find(
+																			opts =>
+																				opts.id ===
+																				values
+																					.motorcycles[
+																					i
+																				]
+																					.id
+																		)?.name
+																	}
+																</h5>
+																<DropdownField
+																	id={nanoid()}
+																	name={`motorcycles[${i}].id`}
+																	label="Moto"
+																	options={
+																		motorcycleOpts
+																	}
+																	onChange={
+																		handleChange
+																	}
+																/>
+
+																<div>
+																	<NumberField
+																		id={nanoid()}
+																		name={`motorcycles[${i}].quantity`}
+																		label="Quantidade"
+																		min={1}
+																		handleBlur={
+																			handleBlur
+																		}
+																		handleChange={
+																			handleChange
+																		}
+																		value={
+																			values
+																				.motorcycles[
+																				i
+																			]
+																				.quantity
+																		}
+																	/>
+																</div>
+
+																<button
+																	type="button"
+																	onClick={() =>
+																		arrayHelpers.remove(
+																			i
+																		)
+																	}
+																>
+																	<FiTrash />
+																</button>
+															</div>
+															// <div key={nanoid()}>
+
+															// </div>
+														)
+													)}
+												</>
+											) : (
+												<>nothing</>
+											)}
+
+											<button
+												type="button"
+												onClick={() =>
+													arrayHelpers.push({
+														id: '',
+														quantity: 1,
+													})
+												}
+											>
+												Adicionar ao pedido
+											</button>
 										</div>
-									))}
-									<hr />
+									);
+								}}
+							</FieldArray>
 
-									<button type="button" onClick={handleAddMotorcycleField}>
-										Adicionar moto ao pedido
-									</button>
-								</div>
-
-								<button type="submit">Salvar</button>
-							</Form>
-						</>
-					)
+							<button type="submit">Cadastrar</button>
+						</Form>
+					);
 				}}
 			</Formik>
-		</div>
+		</>
 	);
 }
-{
-	/* <TextField
-										  id={nanoid()}
-										  name="clientId"
-										  label="Nome"
-										  placeholder="Nome"
-										  error={Boolean(
-											  errors.clientId && touched.clientId
-										  )}
-										  errorMessage={errors.clientId}
-									  /> */
-}
-
-{
-	/* <TextField
-										  id={nanoid()}
-										  name="lastName"
-										  placeholder="Sobrenome"
-										  label="Sobrenome"
-										  error={Boolean(errors.lastName && touched.lastName)}
-										  errorMessage={errors.lastName}
-		  
-									  />
-									  <TextField
-										  id={nanoid()}
-										  name="email"
-										  label="Email"
-										  placeholder="email"
-										  error={Boolean(errors.email && touched.email)}
-										  errorMessage={errors.email}
-									  /> */
-}
+/**
+ *
+ */

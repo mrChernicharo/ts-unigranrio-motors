@@ -6,11 +6,13 @@ interface Props {
 	id: string;
 	name: string;
 	min: number;
+	defaultValue?: any;
+	value?: any;
 	label?: string;
 	error?: boolean;
 	errorMessage?: string;
-	handleBlur: Function;
-	handleChange: Function;
+	handleBlur: any;
+	handleChange: any;
 }
 
 const NumberField = ({
@@ -20,11 +22,24 @@ const NumberField = ({
 	error,
 	min,
 	errorMessage,
+	defaultValue,
+	handleBlur,
+	handleChange,
+	value,
 }: Props) => {
 	return (
 		<div className="Number-field-container">
 			<label htmlFor={name}>{capitalize(label || name)}</label>
-			<input id={id} type="number" name={name} min={min} />
+			<input
+				id={id}
+				type="number"
+				name={name}
+				min={min}
+				// defaultValue={defaultValue}
+				onChange={handleChange}
+				onBlur={handleBlur}
+				value={Number(value)}
+			/>
 			{error && <span className="error-message">{errorMessage}</span>}
 		</div>
 	);

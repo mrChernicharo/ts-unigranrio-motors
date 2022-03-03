@@ -11,6 +11,7 @@ interface ISelectProps {
 	id: string;
 	name: string;
 	label?: string;
+	placeholder?: string;
 	options: IDropdownOption[];
 	onChange: (e: any) => void;
 }
@@ -18,12 +19,14 @@ interface ISelectProps {
 export default function DropdownField({
 	id,
 	name,
+	placeholder,
 	label,
 	options,
 }: ISelectProps) {
 	return (
 		<>
 			<label htmlFor="name">{label || name}</label>
+
 			<Field id={id} as="select" name={name} className="dropdown-select">
 				{options.map(option => (
 					<option
@@ -31,7 +34,7 @@ export default function DropdownField({
 						key={option.id}
 						value={option.value}
 					>
-						{option.name}
+						{option.name || placeholder}
 					</option>
 				))}
 			</Field>

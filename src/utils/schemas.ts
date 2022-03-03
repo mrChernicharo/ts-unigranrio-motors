@@ -22,7 +22,7 @@ export const motorcycleSchema = Yup.object({
 	),
 });
 
-export const transactionSchema = Yup.object().shape({
+export const transactionSchema = Yup.object({
 	clientId: Yup.string().required('Nome é obrigatório'),
 	motorcycles: Yup.array().of(
 		Yup.object().shape({
