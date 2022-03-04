@@ -82,14 +82,8 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 	};
 
 	const createTransaction = (transactionData: IPartialTransaction) => {
-		const completeData = buildCompleteTransactions();
+		const newTransaction = buildCompleteTransaction(transactionData);
 
-		const newTransaction: ITransaction = {
-			id: nanoid(),
-			createdAt: new Date(),
-
-			...transactionData,
-		};
 		const updatedTransactions = [...transactions, newTransaction];
 		setStoredTransactions(updatedTransactions);
 		setTransactions(updatedTransactions);
@@ -117,35 +111,34 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 
 	const getClient = (id: string) => clients.find(client => client.id === id);
 
-	const buildCompleteTransactions = () => {
-		const allClients = transactions.map(transaction =>
-			getClient(transaction.client.id)
-		);
-		const allMotos: ITransactionMotorcycle[][] = transactions.map(
-			transaction =>
-				transaction.motorcycles.map(
-					transMoto =>
-						({
-							motorcycle: transMoto.motorcycle,
-							quantity: transMoto.quantity,
-						} as ITransactionMotorcycle)
-				)
-		);
+	const buildCompleteTransaction = (
+		transactionData: IPartialTransaction
+	): ITransaction => {
+		const client = getClient(transactionData.clientId) as IClient;
+		const motorcycles = transactionData.motorcycles.map(moto => ({
+			motorcycle: getMoto(moto.id) as IMotorcycle,
+			quantity: moto.quantity,
+		}));
 
-		console.log({ transactions, allClients, allMotos });
+		const result = {
+			id: nanoid(),
+			createdAt: new Date(),
+			client,
+			motorcycles,
+			total: motorcycles.reduce(
+				(acc, moto) =>
+					(acc += (moto.motorcycle.price || 0) * moto.quantity),
+				0
+			),
+		};
 
-		// const result = transactions.map(
-		// 	(transaction, i) =>
-		// 		({
-		// 			id: transaction.id,
-		// 			client: allClients[i],
-		// 			motorcycles: allMotos[i].map(moto => moto.),
-		// 			createdAt: transaction.createdAt,
-		// 			total: transaction.total,
-		// 		} as ITransaction)
-		// );
+		console.log('createTransaction', {
+			transactions,
+			transactionData,
+			result,
+		});
 
-		// return result;
+		return result;
 	};
 
 	useEffect(() => {

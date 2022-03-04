@@ -9,9 +9,10 @@ const TransactionsPage = () => {
 	const { transactions } = useAppContext();
 
 	// prettier-ignore
-	const [shownTransactions, setShownTransactions] = useState<ITransaction[]>(() => [...transactions]);
+	const [shownTransactions, setShownTransactions] = useState<ITransaction[]>([...transactions]);
 
 	const handleSearchChange = (searchStr: string) => {
+		console.log('handleSearchChange');
 		searchStr = searchStr.toLowerCase();
 
 		if (searchStr === '') {

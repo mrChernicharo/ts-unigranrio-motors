@@ -21,7 +21,7 @@ export default function TransactionItem({ transaction }: IProps) {
 
 			<p>Data: {new Date(createdAt).toLocaleDateString('pt-BR')}</p>
 			<p>Hora: {new Date(createdAt).toLocaleTimeString('pt-BR')}</p>
-			{/* <p>Pedido:</p>
+			<p>Pedido:</p>
 			<ul>
 				{motorcycles.length > 0 &&
 					motorcycles.map(moto => {
@@ -38,7 +38,7 @@ export default function TransactionItem({ transaction }: IProps) {
 							</li>
 						);
 					})}
-			</ul> */}
+			</ul>
 			<p>Total: {currency(total)}</p>
 		</div>
 	);

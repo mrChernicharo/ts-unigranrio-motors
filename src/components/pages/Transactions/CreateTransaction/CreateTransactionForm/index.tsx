@@ -10,10 +10,11 @@ import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { useAppContext } from '../../../../../context/AppContext';
-import { currency } from '../../../../../utils/functions';
+import { currency, getMotoById } from '../../../../../utils/functions';
 import {
 	ITransaction,
 	IPartialTransaction,
+	IPartialTransactionMotorcycle,
 } from '../../../../../utils/interfaces';
 import { transactionSchema } from '../../../../../utils/schemas';
 import DropdownField, {
@@ -46,35 +47,38 @@ export default function CreateTransactionForm() {
 
 	const getMoto = (id: string) => motorcycles.find(moto => moto.id === id);
 
+	const getTotal = (motos: IPartialTransactionMotorcycle[]) =>
+		motos.reduce(
+			(acc, moto) =>
+				(acc += (getMoto(moto.id)?.price || 0) * moto.quantity),
+			0
+		);
+
+	// const [totalValue, setTotalValue] = useState(0);
+
 	return (
 		<>
 			<h5>Cadastrar Venda</h5>
 
 			<Formik
-				initialValues={{
-					clientId: '',
-					motorcycles: [],
-					total: 0,
-				}}
+				initialValues={
+					{
+						clientId: '',
+						motorcycles: [],
+						total: 0,
+					} as IPartialTransaction
+				}
 				validationSchema={transactionSchema}
 				onSubmit={(values, actions) => {
 					console.log('createTransaction!', { values, actions });
 					const { resetForm } = actions;
 
-					console.log(values.motorcycles);
+					createTransaction({
+						clientId: values.clientId,
+						motorcycles: values.motorcycles,
+						total: getTotal(values.motorcycles),
+					});
 
-					// const getTotal = (values: any) =>
-					// 	values.motorcycles.reduce((acc, next) => {
-					// 		acc +=
-					// 			(getMoto(next.id)?.price || 0) * next.quantity;
-					// 		return acc;
-					// 	}, 0);
-
-					// createTransaction({
-					// 	clientId: values.clientId,
-					// 	motorcycles: values.motorcycles,
-					// 	total: getTotal(values),
-					// });
 					resetForm();
 				}}
 			>
@@ -83,143 +87,124 @@ export default function CreateTransactionForm() {
 					values,
 					handleBlur,
 					handleChange,
-					setValues,
 				}: FormikProps<IPartialTransaction>) => {
 					return (
-						<>
-							<Form>
-								<DropdownField
-									id={nanoid()}
-									name="clientId"
-									label="Cliente"
-									placeholder="Selecione o cliente"
-									options={clientOpts}
-									onChange={handleChange}
-								/>
-								<div className="error-message">
-									{errors.clientId}
-								</div>
-								{values.clientId ? (
-									<FieldArray name="motorcycles">
-										{arrayHelpers => {
-											console.log({
-												arrayHelpers,
-												values,
-											});
+						<Form>
+							<DropdownField
+								id={nanoid()}
+								name="clientId"
+								label="Cliente"
+								placeholder="Selecione o cliente"
+								options={clientOpts}
+								onChange={handleChange}
+							/>
+							<div className="error-message">
+								{errors.clientId}
+							</div>
+							{values.clientId ? (
+								<FieldArray name="motorcycles">
+									{arrayHelpers => {
+										// console.log({
+										// 	arrayHelpers,
+										// 	values,
+										// });
 
-											return (
-												<div className="motorcycles-list">
-													{values?.motorcycles
-														?.length > 0 ? (
-														<>
-															{values.motorcycles.map(
-																(moto, i) => (
-																	<div
-																		key={nanoid()}
-																		className="transaction-item"
-																	>
-																		<h5>
-																			{
-																				motorcycleOpts.find(
-																					opts =>
-																						opts.id ===
-																						values
-																							.motorcycles[
-																							i
-																						]
-																							.id
-																				)
-																					?.name
-																			}
-																		</h5>
-																		<DropdownField
+										return (
+											<div className="motorcycles-list">
+												{values?.motorcycles?.length >
+												0 ? (
+													<>
+														{values.motorcycles.map(
+															(moto, i) => (
+																<div
+																	key={nanoid()}
+																	className="transaction-item"
+																>
+																	<h5>
+																		{
+																			/* prettier-ignore */
+																			motorcycleOpts.find(
+																		opts =>
+																			opts.id === values.motorcycles[i].id)?.name
+																		}
+																	</h5>
+																	<DropdownField
+																		id={nanoid()}
+																		name={`motorcycles[${i}].id`}
+																		placeholder="selecione motocicleta"
+																		label="Moto"
+																		options={
+																			motorcycleOpts
+																		}
+																		onChange={
+																			handleChange
+																		}
+																	/>
+																	<ErrorMessage
+																		name={`motorcycles[${i}].id`}
+																		render={() => (
+																			<div className="error-message">
+																				selecione
+																				uma
+																				moto
+																			</div>
+																		)}
+																	/>
+
+																	<div>
+																		{/* prettier-ignore */}
+																		<NumberField
 																			id={nanoid()}
-																			name={`motorcycles[${i}].id`}
-																			placeholder="selecione motocicleta"
-																			label="Moto"
-																			options={
-																				motorcycleOpts
-																			}
-																			onChange={
-																				handleChange
-																			}
+																			name={`motorcycles[${i}].quantity`}
+																			label="Quantidade"
+																			min={1}
+																			handleBlur={handleBlur}
+																			handleChange={handleChange}
+																			value={values.motorcycles[i].quantity}
 																		/>
-																		<ErrorMessage
-																			name={`motorcycles[${i}].id`}
-																			render={() => (
-																				<div className="error-message">
-																					selecione
-																					uma
-																					moto
-																				</div>
-																			)}
-																		/>
-
-																		<div>
-																			<NumberField
-																				id={nanoid()}
-																				name={`motorcycles[${i}].quantity`}
-																				label="Quantidade"
-																				min={
-																					1
-																				}
-																				handleBlur={
-																					handleBlur
-																				}
-																				handleChange={
-																					handleChange
-																				}
-																				value={
-																					values
-																						.motorcycles[
-																						i
-																					]
-																						.quantity
-																				}
-																			/>
-																		</div>
-
-																		<button
-																			type="button"
-																			onClick={() =>
-																				arrayHelpers.remove(
-																					i
-																				)
-																			}
-																		>
-																			<FiTrash />
-																		</button>
 																	</div>
-																)
-															)}
-														</>
-													) : null}
 
-													<button
-														type="button"
-														onClick={() =>
-															arrayHelpers.push({
-																id: '',
-																quantity: 1,
-															})
-														}
-													>
-														Adicionar ao pedido
-													</button>
-												</div>
-											);
-										}}
-									</FieldArray>
-								) : null}
-								<button type="submit">Cadastrar</button>
+																	<button
+																		type="button"
+																		onClick={() =>
+																			arrayHelpers.remove(
+																				i
+																			)
+																		}
+																	>
+																		<FiTrash />
+																	</button>
+																</div>
+															)
+														)}
+													</>
+												) : null}
 
-								<div>
-									<p>
-										{/* Total: R$ {currency(values.total || 0)} */}
-									</p>
-								</div>
-							</Form>
-						</>
+												<button
+													type="button"
+													onClick={() =>
+														arrayHelpers.push({
+															id: '',
+															quantity: 1,
+														})
+													}
+												>
+													Adicionar ao pedido
+												</button>
+											</div>
+										);
+									}}
+								</FieldArray>
+							) : null}
+							<button type="submit">Cadastrar</button>
+
+							<div>
+								<p>
+									Total:{' '}
+									{currency(getTotal(values.motorcycles))}
+								</p>
+							</div>
+						</Form>
 					);
 				}}
 			</Formik>
