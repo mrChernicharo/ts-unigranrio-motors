@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { getCient, getMoto } from '../../../../../utils/functions';
+import { currency } from '../../../../../utils/functions';
 import {
 	ICompleteTransaction,
 	ITransaction,
@@ -24,11 +24,25 @@ export default function TransactionItem({ transaction }: IProps) {
 
 			<p>Data: {new Date(createdAt).toLocaleDateString('pt-BR')}</p>
 			<p>Hora: {new Date(createdAt).toLocaleTimeString('pt-BR')}</p>
-			<p>Produtos:</p>
-			{motorcycles.map(moto => (
-				<div key={nanoid()}>{moto.motorcycle.name}</div>
-			))}
-			<p>Total: R${total.toLocaleString('pt-BR')}</p>
+			<p>Pedido:</p>
+			<ul>
+				{motorcycles.length > 0 &&
+					motorcycles.map(moto => {
+						const {
+							quantity,
+							motorcycle: { name = '', imgURL = '', price = 0 },
+						} = moto;
+
+						return (
+							<li key={nanoid()}>
+								<p>
+									{name} x{quantity} {price}
+								</p>
+							</li>
+						);
+					})}
+			</ul>
+			<p>Total: {currency(total)}</p>
 		</div>
 	);
 }

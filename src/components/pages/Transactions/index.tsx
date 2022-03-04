@@ -6,14 +6,13 @@ import TransactionList from './TransactionsList';
 import TransactionsSearch from './TransactionsSearch';
 
 const TransactionsPage = () => {
-	const { transactions, completeTransactions } = useAppContext();
+	const { completeTransactions } = useAppContext();
 
-	const [shownTransactions, setShownTransactions] = useState<
-		ICompleteTransaction[]
-	>(() => [...completeTransactions]);
+	// prettier-ignore
+	const [shownTransactions, setShownTransactions] = useState<ICompleteTransaction[]>(() => [...completeTransactions]);
 
 	const handleSearchChange = (searchStr: string) => {
-		console.log(searchStr);
+		searchStr = searchStr.toLowerCase();
 
 		if (searchStr === '') {
 			setShownTransactions([...completeTransactions]);
@@ -21,15 +20,19 @@ const TransactionsPage = () => {
 		}
 
 		setShownTransactions(
-			shownTransactions.filter(
+			completeTransactions.filter(
 				transaction =>
-					transaction.client.firstName.includes(searchStr) ||
-					transaction.client.lastName.includes(searchStr)
+					transaction.client.firstName
+						.toLowerCase()
+						.includes(searchStr) ||
+					transaction.client.lastName
+						.toLowerCase()
+						.includes(searchStr) ||
+					transaction.total.toString().includes(searchStr)
 			)
 		);
 	};
 
-	console.log(transactions);
 	return (
 		<div>
 			<h1>Vendas</h1>

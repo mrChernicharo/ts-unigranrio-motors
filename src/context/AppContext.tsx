@@ -21,6 +21,7 @@ import {
 	IPartialMotorcycle,
 	IPartialTransaction,
 	ITransaction,
+	ITransactionCompleteMotorcycle,
 	ITransactionMotorcycle,
 } from '../utils/interfaces';
 

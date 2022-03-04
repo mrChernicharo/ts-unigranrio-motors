@@ -1,4 +1,3 @@
-import { getCient } from '../../../../utils/functions';
 import { ITransaction } from '../../../../utils/interfaces';
 
 interface ITransactionSearchProps {

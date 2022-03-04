@@ -10,7 +10,7 @@ import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { useAppContext } from '../../../../../context/AppContext';
-import { calcTotal } from '../../../../../utils/functions';
+import { currency } from '../../../../../utils/functions';
 import {
 	ITransaction,
 	IPartialTransaction,
@@ -26,24 +26,25 @@ import './create-transaction-form.scss';
 export default function CreateTransactionForm() {
 	const { clients, motorcycles, createTransaction } = useAppContext();
 
-	const [totalPrice, setTotalPrice] = useState(0);
-
-	const [clientOpts, setClientOpts] = useState<IDropdownOption[]>([
+	const clientOpts = [
 		{ id: '', name: '', value: '' },
 		...clients.map(client => ({
 			id: client.id,
 			name: `${client.firstName} ${client.lastName}`,
 			value: client.id,
 		})),
-	]);
-	const [motorcycleOpts, setMotorcycleOpts] = useState<IDropdownOption[]>([
+	];
+
+	const motorcycleOpts = [
 		{ id: '', name: '', value: '' },
 		...motorcycles.map(motorcycle => ({
 			id: motorcycle.id,
 			name: motorcycle.name,
 			value: motorcycle.id,
 		})),
-	]);
+	];
+
+	const getMoto = (id: string) => motorcycles.find(moto => moto.id === id);
 
 	return (
 		<>
@@ -52,19 +53,28 @@ export default function CreateTransactionForm() {
 			<Formik
 				initialValues={{
 					clientId: '',
-					motorcycles: [{ id: 'fuehfw9328hh89hawe8fh', quantity: 1 }],
+					motorcycles: [],
 					total: 0,
 				}}
 				validationSchema={transactionSchema}
 				onSubmit={(values, actions) => {
 					console.log('createTransaction!', { values, actions });
 					const { resetForm } = actions;
-					const { clientId, motorcycles: motos } = values;
-					createTransaction({
-						clientId,
-						motorcycles: motos,
-						total: totalPrice,
-					});
+
+					console.log(values.motorcycles);
+
+					// const getTotal = (values: any) =>
+					// 	values.motorcycles.reduce((acc, next) => {
+					// 		acc +=
+					// 			(getMoto(next.id)?.price || 0) * next.quantity;
+					// 		return acc;
+					// 	}, 0);
+
+					// createTransaction({
+					// 	clientId: values.clientId,
+					// 	motorcycles: values.motorcycles,
+					// 	total: getTotal(values),
+					// });
 					resetForm();
 				}}
 			>
@@ -73,15 +83,11 @@ export default function CreateTransactionForm() {
 					values,
 					handleBlur,
 					handleChange,
+					setValues,
 				}: FormikProps<IPartialTransaction>) => {
 					return (
 						<>
 							<Form>
-								{/* {console.log(errors)} */}
-
-								<div className="error-message">
-									{errors.clientId}
-								</div>
 								<DropdownField
 									id={nanoid()}
 									name="clientId"
@@ -90,11 +96,16 @@ export default function CreateTransactionForm() {
 									options={clientOpts}
 									onChange={handleChange}
 								/>
-
+								<div className="error-message">
+									{errors.clientId}
+								</div>
 								{values.clientId ? (
 									<FieldArray name="motorcycles">
 										{arrayHelpers => {
-											// console.log(arrayHelpers);
+											console.log({
+												arrayHelpers,
+												values,
+											});
 
 											return (
 												<div className="motorcycles-list">
@@ -202,10 +213,10 @@ export default function CreateTransactionForm() {
 								) : null}
 								<button type="submit">Cadastrar</button>
 
-								{setTotalPrice(calcTotal(values.motorcycles))}
-
 								<div>
-									<p>Total: R${totalPrice}</p>
+									<p>
+										{/* Total: R$ {currency(values.total || 0)} */}
+									</p>
 								</div>
 							</Form>
 						</>
