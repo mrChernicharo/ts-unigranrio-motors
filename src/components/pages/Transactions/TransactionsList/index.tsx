@@ -1,13 +1,15 @@
-import { ITransaction } from '../../../../utils/interfaces';
-import Transaction from './Transaction';
+import {
+	ICompleteTransaction,
+	ITransaction,
+} from '../../../../utils/interfaces';
+import Transaction from './TransactionItem';
 
 // import './transaction-list.scss';
 interface IProps {
-	transactions: ITransaction[];
+	transactions: ICompleteTransaction[];
 }
 
 export default function TransactionList({ transactions }: IProps) {
-	console.log(transactions);
 	return (
 		<div className="container">
 			{transactions.map(transaction => (

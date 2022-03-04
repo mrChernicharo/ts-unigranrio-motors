@@ -1,27 +1,32 @@
 import { nanoid } from 'nanoid';
 import { getCient, getMoto } from '../../../../../utils/functions';
-import { ITransaction } from '../../../../../utils/interfaces';
+import {
+	ICompleteTransaction,
+	ITransaction,
+} from '../../../../../utils/interfaces';
 import './transaction.scss';
 
 interface IProps {
-	transaction: ITransaction;
+	transaction: ICompleteTransaction;
 }
 
-export default function Transaction({ transaction }: IProps) {
-	const { id, clientId, createdAt, total, motorcycles } = transaction;
+export default function TransactionItem({ transaction }: IProps) {
+	const { id, client, createdAt, total, motorcycles } = transaction;
+
+	const { firstName, lastName } = client;
 
 	return (
 		<div className="transaction-container">
 			<p>id: {id}</p>
 
 			<p>Cliente: </p>
-			{`${getCient(clientId)?.firstName} ${getCient(clientId)?.lastName}`}
+			{`${firstName} ${lastName}`}
 
 			<p>Data: {new Date(createdAt).toLocaleDateString('pt-BR')}</p>
 			<p>Hora: {new Date(createdAt).toLocaleTimeString('pt-BR')}</p>
 			<p>Produtos:</p>
 			{motorcycles.map(moto => (
-				<div key={nanoid()}>{getMoto(moto.id)?.name}</div>
+				<div key={nanoid()}>{moto.motorcycle.name}</div>
 			))}
 			<p>Total: R${total.toLocaleString('pt-BR')}</p>
 		</div>

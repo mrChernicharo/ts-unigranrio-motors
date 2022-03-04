@@ -5,6 +5,7 @@ import {
 	ReactNode,
 	useContext,
 	useEffect,
+	useMemo,
 } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import {
@@ -12,20 +13,22 @@ import {
 	initialMotorcycles,
 	initialTransactions,
 } from '../utils/constants';
-import { calcTotal } from '../utils/functions';
 import {
 	IClient,
+	ICompleteTransaction,
 	IMotorcycle,
 	IPartialClient,
 	IPartialMotorcycle,
 	IPartialTransaction,
 	ITransaction,
+	ITransactionMotorcycle,
 } from '../utils/interfaces';
 
 interface AppContext {
 	clients: IClient[];
 	motorcycles: IMotorcycle[];
 	transactions: ITransaction[];
+	completeTransactions: ICompleteTransaction[];
 
 	createClient: (clientData: IPartialClient) => void;
 	updateClient: (clientData: IClient) => void;
@@ -43,6 +46,7 @@ const AppContext = createContext<AppContext>({
 	clients: [],
 	motorcycles: [],
 	transactions: [],
+	completeTransactions: [],
 	createClient: () => {},
 	updateClient: () => {},
 	createMotorcycle: () => {},
@@ -63,6 +67,9 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 	const [clients, setClients] = useState<IClient[]>([]);
 	const [motorcycles, setMotorcycles] = useState<IMotorcycle[]>([]);
 	const [transactions, setTransactions] = useState<ITransaction[]>([]);
+	// prettier-ignore
+	const [completeTransactions, setCompleteTransactions] = useState<ICompleteTransaction[]>([]);
+	const [total, setTotal] = useState(0);
 
 	const createClient = (clientData: IPartialClient) => {
 		const newClient: IClient = { id: nanoid(), ...clientData };
@@ -108,6 +115,37 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		);
 	};
 
+	// helpers
+
+	const getMoto = (id: string) => motorcycles.find(moto => moto.id === id);
+
+	const getClient = (id: string) => clients.find(client => client.id === id);
+
+	const buildCompleteTransactions = () => {
+		const allClients = transactions.map(transaction =>
+			getClient(transaction.clientId)
+		);
+		const allMotos = transactions.map(transaction =>
+			transaction.motorcycles.map(transMoto => ({
+				motorcycle: getMoto(transMoto.id),
+				quantity: transMoto.quantity,
+			}))
+		);
+
+		const result = transactions.map(
+			(transaction, i) =>
+				({
+					id: transaction.id,
+					client: allClients[i],
+					motorcycles: allMotos[i],
+					createdAt: transaction.createdAt,
+					total: transaction.total,
+				} as ICompleteTransaction)
+		);
+
+		return result;
+	};
+
 	useEffect(() => {
 		console.log(initialTransactions);
 		setClients((storedClients.length && storedClients) || initialClients);
@@ -121,10 +159,15 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		);
 	}, []);
 
+	useEffect(() => {
+		setCompleteTransactions(buildCompleteTransactions);
+	}, [transactions]);
+
 	const context: AppContext = {
 		clients,
 		motorcycles,
 		transactions,
+		completeTransactions,
 		createClient,
 		updateClient,
 		createMotorcycle,

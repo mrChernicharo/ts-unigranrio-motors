@@ -18,11 +18,23 @@ export interface IMotorcycle {
 
 export type IPartialMotorcycle = Omit<IMotorcycle, 'id'>;
 export type ITransactionMotorcycle = { id: string; quantity: number };
+export type ITransactionCompleteMotorcycle = {
+	motorcycle: IMotorcycle;
+	quantity: number;
+};
 
 export interface ITransaction {
 	id: string;
 	clientId: string;
 	motorcycles: ITransactionMotorcycle[];
+	total: number;
+	createdAt: Date;
+}
+
+export interface ICompleteTransaction {
+	id: string;
+	client: IClient;
+	motorcycles: ITransactionCompleteMotorcycle[];
 	total: number;
 	createdAt: Date;
 }
