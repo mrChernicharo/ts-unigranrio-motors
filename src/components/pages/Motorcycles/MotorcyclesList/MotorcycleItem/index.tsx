@@ -5,8 +5,12 @@ import MotorcycleDetails from '../../MotorcycleDetails';
 
 interface IMotorcycleProps {
 	motorcycle: IMotorcycle;
+	onDelete: (id: string) => void;
 }
-export default function MotorcycleItem({ motorcycle }: IMotorcycleProps) {
+export default function MotorcycleItem({
+	motorcycle,
+	onDelete,
+}: IMotorcycleProps) {
 	const { name, description, year, price, imgURL } = motorcycle;
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -39,6 +43,7 @@ export default function MotorcycleItem({ motorcycle }: IMotorcycleProps) {
 				<MotorcycleDetails
 					motorcycle={motorcycle}
 					onClose={handleDetailsModalClose}
+					onDelete={onDelete}
 				/>
 			)}
 		</>

@@ -30,11 +30,15 @@ interface AppContext {
 
 	createClient: (clientData: IPartialClient) => void;
 	updateClient: (clientData: IClient) => void;
+	deleteClient: (id: string) => void;
 
 	createMotorcycle: (motorcycleData: IPartialMotorcycle) => void;
 	updateMotorcycle: (motorcycleData: IMotorcycle) => void;
+	deleteMotorcycle: (id: string) => void;
 
 	createTransaction: (TransactionData: IPartialTransaction) => void;
+	updateTransaction: (TransactionData: ITransaction) => void;
+	deleteTransaction: (id: string) => void;
 }
 interface IAppContextProviderProps {
 	children: ReactNode;
@@ -46,9 +50,13 @@ const AppContext = createContext<AppContext>({
 	transactions: [],
 	createClient: () => {},
 	updateClient: () => {},
+	deleteClient: () => {},
 	createMotorcycle: () => {},
 	updateMotorcycle: () => {},
+	deleteMotorcycle: () => {},
 	createTransaction: () => {},
+	updateTransaction: () => {},
+	deleteTransaction: () => {},
 });
 
 export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
@@ -72,7 +80,6 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setStoredClients(updatedClients);
 		setClients(updatedClients);
 	};
-
 	const createMotorcycle = (motorcycleData: IPartialMotorcycle) => {
 		const newMoto: IMotorcycle = { id: nanoid(), ...motorcycleData };
 		const updatedMotos = [...motorcycles, newMoto];
@@ -80,7 +87,6 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setStoredMotorcycles(updatedMotos);
 		setMotorcycles(updatedMotos);
 	};
-
 	const createTransaction = (transactionData: IPartialTransaction) => {
 		const newTransaction = buildCompleteTransaction(transactionData);
 
@@ -96,12 +102,26 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 			clients.map(client => (client.id === id ? clientData : client))
 		);
 	};
-
 	const updateMotorcycle = (motorcycleData: IMotorcycle) => {
 		console.log('update', motorcycleData);
 		const { id } = motorcycleData;
 		setMotorcycles(
 			motorcycles.map(moto => (moto.id === id ? motorcycleData : moto))
+		);
+	};
+	const updateTransaction = (transactionData: ITransaction) => {
+		console.log('update transaction', { transactionData });
+	};
+
+	const deleteClient = (id: string) => {
+		return setClients(clients.filter(client => client.id !== id));
+	};
+	const deleteMotorcycle = (id: string) => {
+		return setMotorcycles(motorcycles.filter(moto => moto.id !== id));
+	};
+	const deleteTransaction = (id: string) => {
+		return setTransactions(
+			transactions.filter(transaction => transaction.id !== id)
 		);
 	};
 
@@ -164,9 +184,13 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		transactions,
 		createClient,
 		updateClient,
+		deleteClient,
 		createMotorcycle,
 		updateMotorcycle,
+		deleteMotorcycle,
 		createTransaction,
+		updateTransaction,
+		deleteTransaction,
 	};
 
 	return (

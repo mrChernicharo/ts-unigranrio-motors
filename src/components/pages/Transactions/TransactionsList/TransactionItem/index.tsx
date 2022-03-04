@@ -7,9 +7,10 @@ import TransactionDetails from '../../TransactionDetails';
 
 interface IProps {
 	transaction: ITransaction;
+	onDelete: (id: string) => void;
 }
 
-export default function TransactionItem({ transaction }: IProps) {
+export default function TransactionItem({ transaction, onDelete }: IProps) {
 	const { id, client, createdAt, total, motorcycles } = transaction;
 	const { firstName, lastName } = client;
 
@@ -77,6 +78,7 @@ export default function TransactionItem({ transaction }: IProps) {
 				<TransactionDetails
 					transaction={transaction}
 					onClose={handleDetailsModalClose}
+					onDelete={onDelete}
 				/>
 			)}
 		</>

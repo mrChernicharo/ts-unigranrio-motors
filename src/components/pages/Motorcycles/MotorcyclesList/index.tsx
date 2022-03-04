@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useAppContext } from '../../../../context/AppContext';
 import { IMotorcycle } from '../../../../utils/interfaces';
 import MotorcycleItem from './MotorcycleItem';
 import './motorcycles-list.scss';
@@ -8,10 +9,17 @@ interface IMotorcyclesListProps {
 }
 
 const MotorcyclesList = ({ motorcycles }: IMotorcyclesListProps) => {
+	const { deleteMotorcycle } = useAppContext();
+
+	const handleDeletedMotorcycle = (id: string) => deleteMotorcycle(id);
 	return (
 		<div className="motorcycles-list-container">
 			{motorcycles.map(motorcycle => (
-				<MotorcycleItem key={motorcycle.id} motorcycle={motorcycle} />
+				<MotorcycleItem
+					key={motorcycle.id}
+					motorcycle={motorcycle}
+					onDelete={handleDeletedMotorcycle}
+				/>
 			))}
 		</div>
 	);

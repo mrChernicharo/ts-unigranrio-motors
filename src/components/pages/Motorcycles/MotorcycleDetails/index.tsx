@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiEdit, FiEdit2, FiEdit3, FiX } from 'react-icons/fi';
+import { FiEdit, FiEdit2, FiEdit3, FiTrash, FiX } from 'react-icons/fi';
 import { IMotorcycle } from '../../../../utils/interfaces';
 import MotorcycleForm from '../MotorcycleForm';
 import './motorcycle-details.scss';
@@ -7,9 +7,14 @@ import './motorcycle-details.scss';
 interface IProps {
 	motorcycle: IMotorcycle;
 	onClose: (e: any) => void;
+	onDelete: (id: string) => void;
 }
-export default function MotorcycleDetails({ motorcycle, onClose }: IProps) {
-	const { name, description, year, price, imgURL } = motorcycle;
+export default function MotorcycleDetails({
+	motorcycle,
+	onClose,
+	onDelete,
+}: IProps) {
+	const { id, name, description, year, price, imgURL } = motorcycle;
 
 	const [editingMode, setEditingMode] = useState(false);
 
@@ -18,6 +23,10 @@ export default function MotorcycleDetails({ motorcycle, onClose }: IProps) {
 			<div className="app-modal">
 				<button onClick={onClose}>
 					<FiX />
+				</button>
+
+				<button onClick={() => onDelete(id)}>
+					<FiTrash />
 				</button>
 
 				{editingMode ? (

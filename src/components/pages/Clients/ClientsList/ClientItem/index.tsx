@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { IClient } from '../../../../../utils/interfaces';
 import ClientDetails from '../../ClientDetails';
 
-interface IClientProps {
+interface IClientItemProps {
 	client: IClient;
+	onDelete: (id: string) => void;
 }
 
-export default function Client({ client }: IClientProps) {
+export default function ClientItem({ client, onDelete }: IClientItemProps) {
 	const { firstName, lastName, email } = client;
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -17,10 +18,6 @@ export default function Client({ client }: IClientProps) {
 	const handleDetailsModalClose = (e: any) => {
 		e.stopPropagation();
 		setIsModalOpen(false);
-	};
-
-	const handleDeleteClient = (id: string) => {
-		console.log(`delete id: ${id}`);
 	};
 
 	return (
@@ -38,7 +35,7 @@ export default function Client({ client }: IClientProps) {
 				<ClientDetails
 					client={client}
 					onClose={handleDetailsModalClose}
-					onDelete={handleDeleteClient}
+					onDelete={onDelete}
 				/>
 			)}
 		</>
