@@ -52,19 +52,61 @@ export const initialMotorcycles: IMotorcycle[] = [
 export const initialTransactions: ITransaction[] = [
 	{
 		id: '4cQUHABNT_ewQhupe3Q21',
-		clientId: initialClients[2].id,
+		client: {
+			id: initialClients[2].id,
+			firstName: initialClients[2].firstName,
+			lastName: initialClients[2].lastName,
+			email: initialClients[2].email,
+		},
 		createdAt: new Date(2022, 2, 1, 22, 21, 32),
-		motorcycles: [{ id: initialMotorcycles[0].id, quantity: 1 }],
-		total: initialMotorcycles[0].price,
+		motorcycles: [
+			{
+				motorcycle: {
+					id: initialMotorcycles[0].id,
+					name: initialMotorcycles[0].name,
+					description: initialMotorcycles[0].description,
+					year: initialMotorcycles[0].year,
+					price: initialMotorcycles[0].price,
+					imgURL: initialMotorcycles[0].imgURL,
+				},
+				quantity: 2,
+			},
+		],
+		total: initialMotorcycles[0].price * 2,
 	},
 	{
 		id: 'Thfr-ABNT_ewKU6leRruY',
-		clientId: initialClients[0].id,
+		client: {
+			id: initialClients[1].id,
+			firstName: initialClients[1].firstName,
+			lastName: initialClients[1].lastName,
+			email: initialClients[1].email,
+		},
 		createdAt: new Date(2022, 2, 2, 12, 14, 24),
 		motorcycles: [
-			{ id: initialMotorcycles[1].id, quantity: 1 },
-			{ id: initialMotorcycles[2].id, quantity: 2 },
+			{
+				motorcycle: {
+					id: initialMotorcycles[1].id,
+					name: initialMotorcycles[1].name,
+					description: initialMotorcycles[1].description,
+					year: initialMotorcycles[1].year,
+					price: initialMotorcycles[1].price,
+					imgURL: initialMotorcycles[1].imgURL,
+				},
+				quantity: 1,
+			},
+			{
+				motorcycle: {
+					id: initialMotorcycles[2].id,
+					name: initialMotorcycles[2].name,
+					description: initialMotorcycles[2].description,
+					year: initialMotorcycles[2].year,
+					price: initialMotorcycles[2].price,
+					imgURL: initialMotorcycles[2].imgURL,
+				},
+				quantity: 1,
+			},
 		],
-		total: initialMotorcycles[1].price + initialMotorcycles[2].price * 2,
+		total: initialMotorcycles[1].price + initialMotorcycles[2].price,
 	},
 ];

@@ -1,12 +1,9 @@
-import {
-	ICompleteTransaction,
-	ITransaction,
-} from '../../../../utils/interfaces';
+import { ITransaction } from '../../../../utils/interfaces';
 import Transaction from './TransactionItem';
 
 // import './transaction-list.scss';
 interface IProps {
-	transactions: ICompleteTransaction[];
+	transactions: ITransaction[];
 }
 
 export default function TransactionList({ transactions }: IProps) {

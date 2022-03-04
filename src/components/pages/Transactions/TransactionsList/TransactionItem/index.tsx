@@ -1,13 +1,10 @@
 import { nanoid } from 'nanoid';
 import { currency } from '../../../../../utils/functions';
-import {
-	ICompleteTransaction,
-	ITransaction,
-} from '../../../../../utils/interfaces';
+import { ITransaction } from '../../../../../utils/interfaces';
 import './transaction.scss';
 
 interface IProps {
-	transaction: ICompleteTransaction;
+	transaction: ITransaction;
 }
 
 export default function TransactionItem({ transaction }: IProps) {

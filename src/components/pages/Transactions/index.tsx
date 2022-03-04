@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../../context/AppContext';
-import { ICompleteTransaction } from '../../../utils/interfaces';
+import { ITransaction } from '../../../utils/interfaces';
 import CreateTransaction from './CreateTransaction';
 import TransactionList from './TransactionsList';
 import TransactionsSearch from './TransactionsSearch';
 
 const TransactionsPage = () => {
-	const { completeTransactions } = useAppContext();
+	const { transactions } = useAppContext();
 
 	// prettier-ignore
-	const [shownTransactions, setShownTransactions] = useState<ICompleteTransaction[]>(() => [...completeTransactions]);
+	const [shownTransactions, setShownTransactions] = useState<ITransaction[]>(() => [...transactions]);
 
 	const handleSearchChange = (searchStr: string) => {
 		searchStr = searchStr.toLowerCase();
 
 		if (searchStr === '') {
-			setShownTransactions([...completeTransactions]);
+			setShownTransactions([...transactions]);
 			return;
 		}
 
 		setShownTransactions(
-			completeTransactions.filter(
+			transactions.filter(
 				transaction =>
 					transaction.client.firstName
 						.toLowerCase()
