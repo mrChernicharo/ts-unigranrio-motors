@@ -1,4 +1,5 @@
 import { Field } from 'formik';
+import { ReactNode } from 'react';
 import './dropdown.scss';
 
 export interface IDropdownOption {
@@ -14,6 +15,7 @@ interface ISelectProps {
 	placeholder?: string;
 	options: IDropdownOption[];
 	onChange: (e: any) => void;
+	children?: ReactNode;
 }
 
 export default function DropdownField({
@@ -22,9 +24,10 @@ export default function DropdownField({
 	placeholder,
 	label,
 	options,
+	children,
 }: ISelectProps) {
 	return (
-		<>
+		<div className="select-container">
 			<label htmlFor="name">{label || name}</label>
 
 			<Field id={id} as="select" name={name} className="dropdown-select">
@@ -38,6 +41,8 @@ export default function DropdownField({
 					</option>
 				))}
 			</Field>
-		</>
+
+			{!!children && children}
+		</div>
 	);
 }

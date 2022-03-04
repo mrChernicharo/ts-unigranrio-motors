@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
-import './create-transaction.scss';
 import CreateClientForm from './CreateTransactionForm';
 
 export default function CreateTransaction() {
@@ -11,9 +10,9 @@ export default function CreateTransaction() {
 	};
 
 	return (
-		<div className={`${isFormShown ? 'close' : 'open'} new-form-container`}>
+		<div className={`new-form-container ${isFormShown ? 'open' : 'close'}`}>
 			<button
-				className={`${isFormShown ? 'close' : 'open'} new-form-button`}
+				className={`new-form-button ${isFormShown ? 'close' : 'open'}`}
 				onClick={handleCreateClientClick(isFormShown)}
 			>
 				{isFormShown ? <FiX /> : <FiPlus />}

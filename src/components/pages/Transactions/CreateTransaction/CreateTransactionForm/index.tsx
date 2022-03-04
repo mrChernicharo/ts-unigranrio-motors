@@ -49,7 +49,7 @@ export default function CreateTransactionForm() {
 			initialValues={
 				{
 					clientId: '',
-					motorcycles: [],
+					motorcycles: [{ id: '', quantity: 1 }],
 					total: 0,
 				} as IPartialTransaction
 			}
@@ -104,38 +104,38 @@ export default function CreateTransactionForm() {
 																key={nanoid()}
 																className="transaction-item"
 															>
-																<h5>
+																{/* <h5>
 																	{
-																		/* prettier-ignore */
 																		motorcycleOpts.find(
 																		opts =>
 																			opts.id === values.motorcycles[i].id)?.name
 																	}
-																</h5>
-																<DropdownField
-																	id={nanoid()}
-																	name={`motorcycles[${i}].id`}
-																	placeholder="selecione motocicleta"
-																	label="Moto"
-																	options={
-																		motorcycleOpts
-																	}
-																	onChange={
-																		handleChange
-																	}
-																/>
-																<ErrorMessage
-																	name={`motorcycles[${i}].id`}
-																	render={() => (
-																		<div className="error-message">
-																			selecione
-																			uma
-																			moto
-																		</div>
-																	)}
-																/>
+																</h5> */}
+																<div className="form-row">
+																	<DropdownField
+																		id={nanoid()}
+																		name={`motorcycles[${i}].id`}
+																		placeholder="selecione motocicleta"
+																		label="Moto"
+																		options={
+																			motorcycleOpts
+																		}
+																		onChange={
+																			handleChange
+																		}
+																	>
+																		<ErrorMessage
+																			name={`motorcycles[${i}].id`}
+																			render={() => (
+																				<div className="error-message">
+																					selecione
+																					uma
+																					moto
+																				</div>
+																			)}
+																		/>
+																	</DropdownField>
 
-																<div>
 																	{/* prettier-ignore */}
 																	<NumberField
 																			id={nanoid()}
@@ -173,7 +173,7 @@ export default function CreateTransactionForm() {
 													})
 												}
 											>
-												Adicionar ao pedido
+												Adicionar Moto ao Pedido
 											</button>
 										</div>
 									);

@@ -57,6 +57,11 @@ button {
 	cursor: pointer;
 	border: none;
 	transition: opacity 0.5s;
+	padding: 0.5rem;
+	border-radius: 1rem;
+	background-color: var(--accent);
+	color: #fff;
+	font-weight: 600;
 
 	&:hover {
 		opacity: 0.7;
@@ -74,6 +79,14 @@ button {
 
 .page-container {
 	margin: 0 auto;
+}
+
+.banner {
+	background: url('/src/assets/banner.jpg') no-repeat fixed center;
+
+	width: 100vw;
+	height: 600px;
+	box-shadow: 43px 43px 95px #1f2229, -13px -3px 55px #31363f;
 }
 
 .list-container {
@@ -113,6 +126,17 @@ button {
 	align-items: end;
 	bottom: 2rem;
 	right: 2rem;
+
+	&.open {
+		padding: 2rem;
+		border-radius: 8px;
+		background: #282c34;
+		box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
+		min-height: 300px;
+		min-height: 400px;
+	}
+	// &.close {
+	// }
 
 	.new-form-button {
 		&.open {

@@ -1,6 +1,6 @@
 import { Field, FieldProps, FormikProps } from 'formik';
 import { capitalize } from '../../../utils/functions';
-import './text-field.scss';
+import './number-field.scss';
 
 interface Props {
 	id: string;
@@ -28,7 +28,7 @@ const NumberField = ({
 	value,
 }: Props) => {
 	return (
-		<div className="Number-field-container">
+		<div className="number-field-container">
 			<label htmlFor={name}>{capitalize(label || name)}</label>
 			<input
 				id={id}

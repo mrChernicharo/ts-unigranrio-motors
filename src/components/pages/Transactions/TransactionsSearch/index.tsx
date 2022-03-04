@@ -6,6 +6,8 @@ interface ITransactionSearchProps {
 	onChange: (value: string) => void;
 }
 
+const placeholder = 'Filtrar vendas por nome, moto ou valor...';
+
 export default function TransactionsSearch({
 	onChange,
 }: ITransactionSearchProps) {
@@ -16,7 +18,11 @@ export default function TransactionsSearch({
 				<div className="search-input-icon">
 					<FiSearch size={24} />
 				</div>
-				<input type="text" onChange={handleChange}></input>
+				<input
+					type="text"
+					onChange={handleChange}
+					placeholder={placeholder}
+				></input>
 			</div>
 		</>
 	);
