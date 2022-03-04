@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/AppContext';
 import { ITransaction } from '../../../utils/interfaces';
 import CreateTransaction from './CreateTransaction';
@@ -10,29 +10,34 @@ const TransactionsPage = () => {
 
 	// prettier-ignore
 	const [shownTransactions, setShownTransactions] = useState<ITransaction[]>([...transactions]);
+	const [searchTerm, setSearchTerm] = useState('');
 
 	const handleSearchChange = (searchStr: string) => {
-		console.log('handleSearchChange');
-		searchStr = searchStr.toLowerCase();
-
-		if (searchStr === '') {
-			setShownTransactions([...transactions]);
-			return;
-		}
-
-		setShownTransactions(
-			transactions.filter(
-				transaction =>
-					transaction.client.firstName
-						.toLowerCase()
-						.includes(searchStr) ||
-					transaction.client.lastName
-						.toLowerCase()
-						.includes(searchStr) ||
-					transaction.total.toString().includes(searchStr)
-			)
-		);
+		setSearchTerm(searchStr.toLowerCase());
 	};
+
+	useEffect(() => {
+		if (searchTerm === '') {
+			setShownTransactions([...transactions]);
+		} else {
+			setShownTransactions(
+				transactions.filter(transaction => {
+					const clientName = `${transaction.client.firstName.toLowerCase()} ${transaction.client.lastName.toLowerCase()}`;
+					const motoNames = transaction.motorcycles
+						.map(moto => moto.motorcycle.name.toLowerCase())
+						.join(' ');
+
+					console.log({ clientName, motoNames, searchTerm });
+
+					return (
+						clientName.includes(searchTerm) ||
+						motoNames.includes(searchTerm) ||
+						transaction.total.toString().includes(searchTerm)
+					);
+				})
+			);
+		}
+	}, [searchTerm]);
 
 	return (
 		<div>
