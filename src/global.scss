@@ -25,6 +25,10 @@ code {
 	box-sizing: border-box;
 }
 
+h1 {
+	margin: 3rem 0 0 0;
+}
+
 h5 {
 	margin: 0;
 }
@@ -74,6 +78,25 @@ button {
 	display: flex;
 	font-size: calc(10px + 2vmin);
 	color: white;
+}
+
+.app-card {
+	margin: 1.25rem;
+	padding: 1rem;
+	border-radius: 8px;
+	// background: #282c34;
+	// box-shadow: 14px 14px 28px #1f2229, -14px -14px 28px #31363f;
+
+	// border-radius: 24px;
+	background: #282c34;
+	box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
+
+	cursor: pointer;
+	transition: 0.3s;
+
+	&:hover {
+		opacity: 0.7;
+	}
 }
 
 .new-form-button-container {

@@ -4,6 +4,7 @@ import { ITransaction } from '../../../utils/interfaces';
 import CreateTransaction from './CreateTransaction';
 import TransactionList from './TransactionsList';
 import TransactionsSearch from './TransactionsSearch';
+import './transaction-page.scss';
 
 const TransactionsPage = () => {
 	const { transactions } = useAppContext();
@@ -41,9 +42,10 @@ const TransactionsPage = () => {
 
 	return (
 		<div className="page-container">
-			<h1>Vendas</h1>
-
-			<TransactionsSearch onChange={handleSearchChange} />
+			<div className="search-input-container">
+				<h1>Vendas</h1>
+				<TransactionsSearch onChange={handleSearchChange} />
+			</div>
 
 			<TransactionList transactions={shownTransactions} />
 

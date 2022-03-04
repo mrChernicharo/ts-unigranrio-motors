@@ -24,7 +24,10 @@ export default function Client({ client }: IClientProps) {
 	};
 
 	return (
-		<div className="client-container" onClick={handleDetailsModalOpen}>
+		<div
+			className="client-container app-card"
+			onClick={handleDetailsModalOpen}
+		>
 			<h5>
 				{firstName} {lastName}
 			</h5>

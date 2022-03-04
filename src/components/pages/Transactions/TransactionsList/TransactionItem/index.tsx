@@ -13,7 +13,7 @@ export default function TransactionItem({ transaction }: IProps) {
 	const { firstName, lastName } = client;
 
 	return (
-		<div className="transaction-container">
+		<div className="transaction-container app-card">
 			<p>Cliente: {`${firstName} ${lastName}`}</p>
 
 			<p>Itens:</p>

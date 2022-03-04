@@ -21,7 +21,10 @@ export default function MotorcycleItem({ motorcycle }: IMotorcycleProps) {
 	// useEffect(() => console.log(isModalOpen), [isModalOpen]);
 
 	return (
-		<div className="motorcycle-container" onClick={handleDetailsModalOpen}>
+		<div
+			className="motorcycle-container app-card"
+			onClick={handleDetailsModalOpen}
+		>
 			<h5>
 				{name}
 				<p>{year}</p>

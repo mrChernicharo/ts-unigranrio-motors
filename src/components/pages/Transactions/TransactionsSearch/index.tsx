@@ -12,7 +12,7 @@ export default function TransactionsSearch({
 	const handleChange = (e: any) => onChange(e.target.value.trim());
 	return (
 		<>
-			<div className="search-input-container">
+			<div className="search-input">
 				<div className="search-input-icon">
 					<FiSearch size={24} />
 				</div>
