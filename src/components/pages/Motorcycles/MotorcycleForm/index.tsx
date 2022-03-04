@@ -1,6 +1,7 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
 import { useAppContext } from '../../../../context/AppContext';
+import { defaultMotoImgURL } from '../../../../utils/constants';
 import { IMotorcycle, IPartialMotorcycle } from '../../../../utils/interfaces';
 import { motorcycleSchema } from '../../../../utils/schemas';
 import TextField from '../../../shared/TextField';
@@ -26,7 +27,7 @@ export default function MotorcycleForm({ motorcycle }: IMotorcyclesFormProps) {
 					description: motorcycle?.description || '',
 					year: motorcycle?.year || 2022,
 					price: motorcycle?.price || 0,
-					imgURL: motorcycle?.imgURL || '',
+					imgURL: motorcycle?.imgURL || defaultMotoImgURL,
 				}}
 				validationSchema={motorcycleSchema}
 				onSubmit={(values, actions) => {

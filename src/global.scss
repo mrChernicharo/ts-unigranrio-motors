@@ -1,0 +1,115 @@
+:root {
+	--normal-text: 13px;
+	--small-text: 11px;
+
+	--bg: #282c34;
+	--alt-text: #cdcdcd;
+	--accent: goldenrod;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+h5 {
+	margin: 0;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+li {
+	padding-left: 1rem;
+}
+
+a {
+	color: var(--accent);
+}
+
+p {
+	font-size: var(--normal-text);
+	margin: 0;
+}
+
+button {
+	cursor: pointer;
+	border: none;
+	transition: opacity 0.5s;
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+// .App {
+// 	background-color: var(--bg);
+// 	min-height: 100vh;
+// 	display: flex;
+// 	flex-direction: column;
+// 	align-items: center;
+// 	justify-content: center;
+// 	font-size: calc(10px + 2vmin);
+// 	color: white;
+// }
+
+.App {
+	background-color: var(--bg);
+	min-height: 100vh;
+	display: flex;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.new-form-button-container {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	bottom: 2rem;
+	right: 2rem;
+
+	.new-form-button {
+		&.open {
+			border-radius: 50%;
+			height: 64px;
+			width: 64px;
+			background-color: var(--accent);
+
+			svg {
+				width: 2rem;
+				height: 2rem;
+				stroke-width: 4px;
+				color: #fff;
+			}
+		}
+
+		&.close {
+			background-color: transparent;
+			// border: 1px solid #fff;
+			width: 46px;
+
+			svg {
+				width: 2rem;
+				height: 2rem;
+				stroke-width: 2px;
+				color: var(--alt-text);
+			}
+		}
+	}
+}

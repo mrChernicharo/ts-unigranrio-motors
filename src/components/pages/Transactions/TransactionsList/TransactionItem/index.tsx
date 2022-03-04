@@ -14,15 +14,10 @@ export default function TransactionItem({ transaction }: IProps) {
 
 	return (
 		<div className="transaction-container">
-			<p>id: {id}</p>
+			<p>Cliente: {`${firstName} ${lastName}`}</p>
 
-			<p>Cliente: </p>
-			{`${firstName} ${lastName}`}
-
-			<p>Data: {new Date(createdAt).toLocaleDateString('pt-BR')}</p>
-			<p>Hora: {new Date(createdAt).toLocaleTimeString('pt-BR')}</p>
-			<p>Pedido:</p>
-			<ul>
+			<p>Itens:</p>
+			<ul className="transaction-itens-ul">
 				{motorcycles.length > 0 &&
 					motorcycles.map(moto => {
 						const {
@@ -33,13 +28,29 @@ export default function TransactionItem({ transaction }: IProps) {
 						return (
 							<li key={nanoid()}>
 								<p>
-									{name} x{quantity} {price}
+									{name} {currency(price)}
+									{quantity > 1 && (
+										<span>
+											{
+												/* prettier-ignore */
+												`( x${quantity} ${currency(price * quantity)} )`
+											}
+										</span>
+									)}
 								</p>
 							</li>
 						);
 					})}
 			</ul>
 			<p>Total: {currency(total)}</p>
+
+			<hr />
+			<p>
+				Data Pedido: {new Date(createdAt).toLocaleDateString('pt-BR')}{' '}
+				às {new Date(createdAt).toLocaleTimeString('pt-BR')}
+			</p>
+
+			<p>Id Pedido: {id}</p>
 		</div>
 	);
 }

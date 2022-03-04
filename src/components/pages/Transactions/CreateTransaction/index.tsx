@@ -11,8 +11,11 @@ export default function CreateTransaction() {
 	};
 
 	return (
-		<div className="container">
-			<button onClick={handleCreateClientClick(isFormShown)}>
+		<div className="container new-form-button-container">
+			<button
+				className={`${isFormShown ? 'close' : 'open'} new-form-button`}
+				onClick={handleCreateClientClick(isFormShown)}
+			>
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 

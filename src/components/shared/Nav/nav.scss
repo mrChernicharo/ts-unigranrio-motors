@@ -1,13 +1,15 @@
 .nav-container {
-  border: 1px solid;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
+	border: 1px solid;
+	width: 100vw;
+	height: 38px;
+	position: fixed;
+	background: var(--bg);
+	top: 0;
+	display: flex;
+	justify-content: space-between;
 
-  span {
-    display: inline-block;
-    margin-inline: 0.5rem;
-  }
+	span {
+		display: inline-block;
+		margin-inline: 0.5rem;
+	}
 }

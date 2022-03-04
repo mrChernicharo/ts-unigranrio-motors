@@ -1,6 +1,9 @@
 import { nanoid } from 'nanoid';
 import { IClient, IMotorcycle, ITransaction } from './interfaces';
 
+export const defaultMotoImgURL =
+	'https://www.indianmotorcyclelakeville.com/images/indianmotorcyclelakeville-slide-scout.png';
+
 export const initialClients: IClient[] = [
 	{
 		id: 'tR_PKzK7vjjChl8gokcOg',

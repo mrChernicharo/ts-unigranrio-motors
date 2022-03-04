@@ -1,3 +1,10 @@
 .transaction-container {
 	border: 1px solid;
+	padding: 1rem;
+
+	.transaction-itens-ul {
+		li p {
+			text-align: right;
+		}
+	}
 }

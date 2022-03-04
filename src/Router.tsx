@@ -4,7 +4,7 @@ import Home from './components/pages/Home';
 import Motorcycles from './components/pages/Motorcycles';
 import TransactionsPage from './components/pages/Transactions';
 import Nav from './components/shared/Nav';
-import './global.css';
+import './global.scss';
 
 function Router() {
 	return (
@@ -15,7 +15,10 @@ function Router() {
 					<Route path="/" element={<Home />} />
 					<Route path="/clients" element={<Clients />} />
 					<Route path="/motorcycles" element={<Motorcycles />} />
-					<Route path="/transactions" element={<TransactionsPage />} />
+					<Route
+						path="/transactions"
+						element={<TransactionsPage />}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</div>

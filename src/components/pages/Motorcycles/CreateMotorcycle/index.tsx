@@ -10,8 +10,11 @@ export default function CreateMotorcycle() {
 	};
 
 	return (
-		<div>
-			<button onClick={handleCreateMotorcycleClick(isFormShown)}>
+		<div className="new-form-button-container">
+			<button
+				className={`${isFormShown ? 'close' : 'open'} new-form-button`}
+				onClick={handleCreateMotorcycleClick(isFormShown)}
+			>
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 

@@ -37,10 +37,10 @@ const TransactionsPage = () => {
 				})
 			);
 		}
-	}, [searchTerm]);
+	}, [searchTerm, transactions]);
 
 	return (
-		<div>
+		<div className="page-container">
 			<h1>Vendas</h1>
 
 			<TransactionsSearch onChange={handleSearchChange} />
