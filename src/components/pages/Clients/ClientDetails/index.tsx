@@ -17,7 +17,7 @@ export default function ClientDetails({ client, onClose, onDelete }: IProps) {
 
 	return (
 		<>
-			<div className="client-details-modal-container">
+			<div className="app-modal">
 				<button onClick={onClose}>
 					<FiX />
 				</button>
@@ -51,7 +51,7 @@ export default function ClientDetails({ client, onClose, onDelete }: IProps) {
 				)}
 			</div>
 
-			<div className="overlay" onClick={onClose}></div>
+			<div className="app-modal-overlay" onClick={onClose}></div>
 		</>
 	);
 }
