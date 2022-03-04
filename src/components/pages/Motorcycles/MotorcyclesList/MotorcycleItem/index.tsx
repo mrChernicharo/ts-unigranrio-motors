@@ -21,25 +21,26 @@ export default function MotorcycleItem({ motorcycle }: IMotorcycleProps) {
 	// useEffect(() => console.log(isModalOpen), [isModalOpen]);
 
 	return (
-		<div
-			className="motorcycle-container app-card"
-			onClick={handleDetailsModalOpen}
-		>
-			<h5>
-				{name}
-				<p>{year}</p>
-			</h5>
-			<p>{description}</p>
+		<>
+			<div
+				className="motorcycle-container app-card"
+				onClick={handleDetailsModalOpen}
+			>
+				<h5>
+					{name}
+					<p>{year}</p>
+				</h5>
+				<p>{description}</p>
 
-			<img src={imgURL} />
-			<p>R${price}</p>
-
+				<img src={imgURL} />
+				<p>R${price}</p>
+			</div>
 			{isModalOpen && (
 				<MotorcycleDetails
 					motorcycle={motorcycle}
 					onClose={handleDetailsModalClose}
 				/>
 			)}
-		</div>
+		</>
 	);
 }
