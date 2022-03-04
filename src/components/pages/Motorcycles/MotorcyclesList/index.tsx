@@ -13,7 +13,7 @@ const MotorcyclesList = ({ motorcycles }: IMotorcyclesListProps) => {
 
 	const handleDeletedMotorcycle = (id: string) => deleteMotorcycle(id);
 	return (
-		<div className="motorcycles-list-container">
+		<div className="motorcycles-list-container list-container">
 			{motorcycles.map(motorcycle => (
 				<MotorcycleItem
 					key={motorcycle.id}

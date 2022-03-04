@@ -8,7 +8,7 @@ const Clients = () => {
 	const { clients } = useAppContext();
 
 	return (
-		<div>
+		<div className="page-container">
 			<h1>Clientes</h1>
 
 			<ClientsList clients={clients} />

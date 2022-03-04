@@ -13,7 +13,7 @@ export default function ClientsList({ clients }: IClientsListProps) {
 	const handleDeleteClient = (id: string) => deleteClient(id);
 
 	return (
-		<div className="clients-list">
+		<div className="clients-list list-container">
 			{clients.map(client => (
 				<ClientItem
 					key={client.id}

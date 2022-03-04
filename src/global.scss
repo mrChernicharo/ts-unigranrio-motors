@@ -28,7 +28,7 @@ code {
 }
 
 h1 {
-	margin: 3rem 0 0 0;
+	margin: 3rem 0 1rem 0;
 }
 
 h5 {
@@ -63,45 +63,50 @@ button {
 	}
 }
 
-// .App {
-// 	background-color: var(--bg);
-// 	min-height: 100vh;
-// 	display: flex;
-// 	flex-direction: column;
-// 	align-items: center;
-// 	justify-content: center;
-// 	font-size: calc(10px + 2vmin);
-// 	color: white;
-// }
-
 .App {
 	background-color: var(--bg);
 	min-height: 100vh;
 	display: flex;
 	font-size: calc(10px + 2vmin);
 	color: white;
+	margin: 0 auto;
+}
+
+.page-container {
+	margin: 0 auto;
+}
+
+.list-container {
+	// width: 100vw;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	// grid-gap: 2rem;
 }
 
 .app-card {
-	margin: 1.25rem;
 	padding: 1rem;
+	margin: 1rem;
 	border-radius: 8px;
-	// background: #282c34;
-	// box-shadow: 14px 14px 28px #1f2229, -14px -14px 28px #31363f;
-
-	// border-radius: 24px;
 	background: #282c34;
-	box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
-
 	cursor: pointer;
 	transition: 0.3s;
+	box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
 
 	&:hover {
 		opacity: 0.7;
 	}
 }
 
-.new-form-button-container {
+.app-form {
+	padding: 2rem;
+	border-radius: 8px;
+	background: #282c34;
+	transition: 0.3s;
+	box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
+	min-height: 300px;
+}
+
+.new-form-container {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
@@ -169,4 +174,10 @@ button {
 	top: 0;
 	left: 0;
 	z-index: 999;
+}
+
+@media screen and (max-width: 720px) {
+	.list-container {
+		grid-template-columns: 1fr;
+	}
 }

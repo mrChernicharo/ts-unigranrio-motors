@@ -2,7 +2,8 @@ import { useAppContext } from '../../../../context/AppContext';
 import { ITransaction } from '../../../../utils/interfaces';
 import Transaction from './TransactionItem';
 
-// import './transaction-list.scss';
+import './transaction-list.scss';
+
 interface IProps {
 	transactions: ITransaction[];
 }
@@ -13,7 +14,7 @@ export default function TransactionList({ transactions }: IProps) {
 	const handleDeleteTransaction = (id: string) => deleteTransaction(id);
 
 	return (
-		<div className="container">
+		<ul className="list-container">
 			{transactions.map(transaction => (
 				<Transaction
 					key={transaction.id}
@@ -21,6 +22,6 @@ export default function TransactionList({ transactions }: IProps) {
 					onDelete={handleDeleteTransaction}
 				/>
 			))}
-		</div>
+		</ul>
 	);
 }

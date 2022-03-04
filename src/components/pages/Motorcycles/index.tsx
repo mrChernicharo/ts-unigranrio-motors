@@ -5,7 +5,7 @@ import CreateMotorcycle from './CreateMotorcycle';
 const Motorcycles = () => {
 	const { motorcycles } = useAppContext();
 	return (
-		<div>
+		<div className="page-container">
 			<h1>Motocicletas</h1>
 
 			<MotorcyclesList motorcycles={motorcycles} />

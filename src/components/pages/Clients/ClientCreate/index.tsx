@@ -10,7 +10,7 @@ export default function CreateClient() {
 	};
 
 	return (
-		<div className="new-form-button-container">
+		<div className={`${isFormShown ? 'close' : 'open'} new-form-container`}>
 			<button
 				className={`${isFormShown ? 'close' : 'open'} new-form-button`}
 				onClick={handleCreateClientClick(isFormShown)}
