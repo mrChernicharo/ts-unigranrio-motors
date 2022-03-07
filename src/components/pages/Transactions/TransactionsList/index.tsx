@@ -1,4 +1,3 @@
-import { useAppContext } from '../../../../context/AppContext';
 import { ITransaction } from '../../../../utils/interfaces';
 import Transaction from './TransactionItem';
 

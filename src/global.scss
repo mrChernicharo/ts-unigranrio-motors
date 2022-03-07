@@ -3,6 +3,7 @@
   --small-text: 11px;
 
   --bg: #282c34;
+  --dark-bg: #191a1b;
   --alt-text: #cdcdcd;
   --accent: goldenrod;
 
@@ -17,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg);
+  font-size: calc(8px + 2vmin);
 }
 
 code {
@@ -76,7 +78,6 @@ button {
 .App {
   min-height: 100vh;
   display: flex;
-  font-size: calc(10px + 2vmin);
   color: white;
   margin: 0 auto;
 }

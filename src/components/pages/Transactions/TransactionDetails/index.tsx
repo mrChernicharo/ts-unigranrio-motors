@@ -48,7 +48,7 @@ export default function TransactionDetails({
 
 						{Object.entries(transaction.client).map(([k, v]) => (
 							<p>
-								{k}:{v}
+								<span className="key">{k}</span>:{v}
 							</p>
 						))}
 
@@ -57,15 +57,12 @@ export default function TransactionDetails({
 							<ul>
 								{Object.entries(moto.motorcycle).map(([k, v]) => (
 									<li>
-										<p>{k}:{v}</p>
+										<p><span className="key">{k}</span>:{v}</p>
 									</li>
 								))}
 							</ul>
 						))}
 
-						{/* <p>{description}</p> */}
-
-						{/* <img src={imgURL} /> */}
 						<p>{currency(total)}</p>
 					</>
 				)}
