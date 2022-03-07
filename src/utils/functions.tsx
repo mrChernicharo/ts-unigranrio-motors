@@ -1,4 +1,3 @@
-import { useAppContext } from '../context/AppContext';
 import {
 	IClient,
 	IMotorcycle,
