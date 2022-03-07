@@ -5,6 +5,7 @@ import { useAppContext } from "../../../../../context/AppContext";
 import Global from "../../../../../hooks/Global";
 import { currency, getMotoById } from "../../../../../utils/functions";
 import {
+  IClient,
   IPartialTransaction,
   IPartialTransactionMotorcycle,
 } from "../../../../../utils/interfaces";

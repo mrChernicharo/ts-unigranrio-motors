@@ -12,10 +12,7 @@ import {
 	IMotorcycle,
 	IPartialTransaction,
 	ITransaction,
-	ITransactionMotorcycle,
 } from '../utils/interfaces';
-import useClients from './useClients';
-import useMotorcycles from './useMotorcycles';
 
 
 const useTransactions = () => {
@@ -25,12 +22,9 @@ const useTransactions = () => {
 
 	const getClient = (id: string) => (JSON.parse(localStorage.getItem('@clients') || '') as IClient[]).find(client => client.id === id)
 	const getMoto = (id: string) => (JSON.parse(localStorage.getItem('@motorcycles') || '') as IMotorcycle[]).find(moto => moto.id === id)
-	// const { getMoto } = useMotorcycles()
 
 	const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
-	// const getClient = (id: string) => storedClients.find(client => client.id === id)
-	// const getMoto = (id: string) => storedMotorcycles.find(motorcycle => motorcycle.id === id)
 
 	const createTransaction = (transactionData: IPartialTransaction) => {
 		const newTransaction = buildCompleteTransaction(transactionData);
