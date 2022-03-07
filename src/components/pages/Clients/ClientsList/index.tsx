@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { useAppContext } from '../../../../context/AppContext';
+// import { useAppContext } from '../../../../context/AppContext';
+import Global from '../../../../hooks/Global';
 import { IClient } from '../../../../utils/interfaces';
 import ClientItem from './ClientItem';
 
@@ -8,7 +9,7 @@ interface IClientsListProps {
 }
 
 export default function ClientsList({ clients }: IClientsListProps) {
-	const { deleteClient } = useAppContext();
+	const { deleteClient } = Global;
 
 	const handleDeleteClient = (id: string) => deleteClient(id);
 

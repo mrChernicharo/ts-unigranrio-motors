@@ -16,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg);
 }
 
 code {
@@ -73,7 +74,6 @@ button {
 }
 
 .App {
-  background-color: var(--bg);
   min-height: 100vh;
   display: flex;
   font-size: calc(10px + 2vmin);

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContextProvider } from './context/AppContext';
 import './global.scss';
-import Router from './Router';
+import App from './App';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<AppContextProvider>
-			<Router />
+			<App />
 		</AppContextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

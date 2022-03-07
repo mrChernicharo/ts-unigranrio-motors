@@ -48,20 +48,20 @@ const AppContext = createContext<AppContext>({
 	clients: [],
 	motorcycles: [],
 	transactions: [],
-	createClient: () => {},
-	updateClient: () => {},
-	deleteClient: () => {},
-	createMotorcycle: () => {},
-	updateMotorcycle: () => {},
-	deleteMotorcycle: () => {},
-	createTransaction: () => {},
-	updateTransaction: () => {},
-	deleteTransaction: () => {},
+	createClient: () => { },
+	updateClient: () => { },
+	deleteClient: () => { },
+	createMotorcycle: () => { },
+	updateMotorcycle: () => { },
+	deleteMotorcycle: () => { },
+	createTransaction: () => { },
+	updateTransaction: () => { },
+	deleteTransaction: () => { },
 });
 
 export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 	//prettier-ignore
-	const [storedClients, setStoredClients] = useLocalStorage<IClient[]>('@clients',initialClients);
+	const [storedClients, setStoredClients] = useLocalStorage<IClient[]>('@clients', initialClients);
 	const [storedMotorcycles, setStoredMotorcycles] = useLocalStorage<
 		IMotorcycle[]
 	>('@motorcycles', initialMotorcycles);
@@ -166,11 +166,11 @@ export const AppContextProvider = ({ children }: IAppContextProviderProps) => {
 		setClients((storedClients.length && storedClients) || initialClients);
 		setMotorcycles(
 			(storedMotorcycles.length && storedMotorcycles) ||
-				initialMotorcycles
+			initialMotorcycles
 		);
 		setTransactions(
 			(storedTransactions.length && storedTransactions) ||
-				initialTransactions
+			initialTransactions
 		);
 	}, []);
 

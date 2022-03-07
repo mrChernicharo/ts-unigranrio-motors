@@ -1,7 +1,8 @@
 import { ErrorMessage, FieldArray, Form, Formik, FormikProps } from "formik";
 import { nanoid } from "nanoid";
-import { FiTrash } from "react-icons/fi";
+import { FiPlus, FiTrash } from "react-icons/fi";
 import { useAppContext } from "../../../../../context/AppContext";
+import Global from "../../../../../hooks/Global";
 import { currency, getMotoById } from "../../../../../utils/functions";
 import {
   IPartialTransaction,
@@ -15,7 +16,7 @@ import NumberField from "../../../../shared/NumberField";
 import "./create-transaction-form.scss";
 
 export default function CreateTransactionForm() {
-  const { clients, motorcycles, createTransaction } = useAppContext();
+  const { clients, motorcycles, createTransaction } = Global;
 
   const clientOpts: IDropdownOption[] = [
     { id: "", name: "", value: "" },
@@ -127,14 +128,14 @@ export default function CreateTransactionForm() {
 
                                 {/* prettier-ignore */}
                                 <NumberField
-									id={nanoid()}
-									name={`motorcycles[${i}].quantity`}
-									label="Quantidade"
-									min={1}
-									handleBlur={handleBlur}
-									handleChange={handleChange}
-									value={values.motorcycles[i].quantity}
-								/>
+                                  id={nanoid()}
+                                  name={`motorcycles[${i}].quantity`}
+                                  label="Quantidade"
+                                  min={1}
+                                  handleBlur={handleBlur}
+                                  handleChange={handleChange}
+                                  value={values.motorcycles[i].quantity}
+                                />
                               </div>
 
                               <button
@@ -157,14 +158,14 @@ export default function CreateTransactionForm() {
                           })
                         }
                       >
-                        Adicionar Moto ao Pedido
+                        <FiPlus />
                       </button>
                     </div>
                   );
                 }}
               </FieldArray>
             ) : null}
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Registrar venda</button>
 
             <div>
               <p>Total: {currency(getTotal(values.motorcycles))}</p>

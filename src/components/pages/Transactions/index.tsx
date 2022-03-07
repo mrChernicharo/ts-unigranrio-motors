@@ -5,9 +5,10 @@ import CreateTransaction from './CreateTransaction';
 import TransactionList from './TransactionsList';
 import TransactionsSearch from './TransactionsSearch';
 import './transaction-page.scss';
+import Global from '../../../hooks/Global';
 
 const TransactionsPage = () => {
-	const { transactions } = useAppContext();
+	const { transactions } = Global;
 
 	// prettier-ignore
 	const [shownTransactions, setShownTransactions] = useState<ITransaction[]>([...transactions]);

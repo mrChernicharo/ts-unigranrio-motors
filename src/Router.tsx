@@ -4,24 +4,22 @@ import Home from './components/pages/Home';
 import Motorcycles from './components/pages/Motorcycles';
 import TransactionsPage from './components/pages/Transactions';
 import Nav from './components/shared/Nav';
+import { useClients } from './hooks/useClients';
 import './global.scss';
 
 function Router() {
 	return (
-		<div className="App">
-			<BrowserRouter>
-				<Nav />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/clients" element={<Clients />} />
-					<Route path="/motorcycles" element={<Motorcycles />} />
-					<Route
-						path="/transactions"
-						element={<TransactionsPage />}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</div>
+		<BrowserRouter>
+			<Nav />
+
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/clients" element={<Clients />} />
+				<Route path="/motorcycles" element={<Motorcycles />} />
+				<Route path="/transactions" element={<TransactionsPage />} />
+			</Routes>
+		</BrowserRouter>
+
 	);
 }
 

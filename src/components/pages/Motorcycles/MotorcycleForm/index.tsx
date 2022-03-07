@@ -1,6 +1,7 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
 import { useAppContext } from '../../../../context/AppContext';
+import Global from '../../../../hooks/Global';
 import { defaultMotoImgURL } from '../../../../utils/constants';
 import { IMotorcycle, IPartialMotorcycle } from '../../../../utils/interfaces';
 import { motorcycleSchema } from '../../../../utils/schemas';
@@ -12,7 +13,7 @@ interface IMotorcyclesFormProps {
 }
 
 export default function MotorcycleForm({ motorcycle }: IMotorcyclesFormProps) {
-	const { createMotorcycle, updateMotorcycle } = useAppContext();
+	const { createMotorcycle, updateMotorcycle } = Global;
 
 	let motoId = '';
 	if (motorcycle) motoId = motorcycle.id;
