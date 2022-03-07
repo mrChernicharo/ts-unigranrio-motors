@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
-import { capitalize } from '../../../../utils/functions';
-import { IClient } from '../../../../utils/interfaces';
-import ClientForm from '../ClientForm';
-import './client-details.scss';
+import { useState } from "react";
+import { FiEdit, FiTrash, FiX } from "react-icons/fi";
+import { capitalize } from "../../../../utils/functions";
+import { IClient } from "../../../../utils/interfaces";
+import DetailsModal from "../../../shared/DetailsModal";
+import ClientForm from "../ClientForm";
+import "./client-details.scss";
 
 interface IProps {
 	client: IClient;
@@ -16,42 +17,35 @@ export default function ClientDetails({ client, onClose, onDelete }: IProps) {
 	const [editingMode, setEditingMode] = useState(false);
 
 	return (
-		<>
-			<div className="app-modal">
-				<button onClick={onClose}>
-					<FiX />
-				</button>
+		<DetailsModal onClose={onClose}>
 
-				<button onClick={() => onDelete(id)}>
-					<FiTrash />
-				</button>
+			<button onClick={() => onDelete(id)}>
+				<FiTrash />
+			</button>
 
-				{editingMode ? (
-					<>
-						<button onClick={() => setEditingMode(false)}>
-							<FiX />
-						</button>
+			{editingMode ? (
+				<>
+					<button onClick={() => setEditingMode(false)}>
+						<FiX />
+					</button>
 
-						<ClientForm mode="edit" client={client} />
-					</>
-				) : (
-					<>
-						<button onClick={() => setEditingMode(true)}>
-							<FiEdit />
-						</button>
+					<ClientForm mode="edit" client={client} />
+				</>
+			) : (
+				<>
+					<button onClick={() => setEditingMode(true)}>
+						<FiEdit />
+					</button>
 
-						<h5>
-							{capitalize(firstName)} {capitalize(lastName)}
-						</h5>
+					<h5>
+						{capitalize(firstName)} {capitalize(lastName)}
+					</h5>
 
-						<p>{email}</p>
+					<p>{email}</p>
 
-						<p>{id}</p>
-					</>
-				)}
-			</div>
-
-			<div className="app-modal-overlay" onClick={onClose}></div>
-		</>
+					<p>{id}</p>
+				</>
+			)}
+		</DetailsModal>
 	);
 }

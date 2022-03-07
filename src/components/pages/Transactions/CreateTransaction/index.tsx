@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FiPlus, FiX } from 'react-icons/fi';
-import CreateClientForm from './CreateTransactionForm';
+import TransactionForm from '../TransactionForm';
 
 export default function CreateTransaction() {
 	const [isFormShown, setIsFormShown] = useState(false);
@@ -18,7 +18,7 @@ export default function CreateTransaction() {
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 
-			{isFormShown && <CreateClientForm />}
+			{isFormShown && <TransactionForm />}
 		</div>
 	);
 }

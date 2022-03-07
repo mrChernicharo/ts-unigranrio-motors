@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
-import { currency } from '../../../../utils/functions';
-import { ITransaction } from '../../../../utils/interfaces';
-import DetailsModal from '../../../shared/DetailsModal';
-import './transaction-details.scss';
+import { useState } from "react";
+import { FiEdit, FiTrash, FiX } from "react-icons/fi";
+import { currency } from "../../../../utils/functions";
+import { ITransaction } from "../../../../utils/interfaces";
+import DetailsModal from "../../../shared/DetailsModal";
+import TransactionForm from "../TransactionForm";
+import "./transaction-details.scss";
 
 interface IProps {
 	transaction: ITransaction;
@@ -21,18 +22,53 @@ export default function TransactionDetails({
 	const [editingMode, setEditingMode] = useState(false);
 
 	return (
-		<DetailsModal itemId={id} onClose={onClose} onDelete={onDelete} >
+		<DetailsModal onClose={onClose}>
 			<>
+				<button onClick={() => onDelete(id)}>
+					<FiTrash />
+				</button>
 
-				<h5>
-					{client.firstName}
-					{client.lastName}
-					<p>{id}</p>
-				</h5>
-				{/* <p>{description}</p> */}
+				{editingMode ? (
+					<>
+						<button onClick={() => setEditingMode(false)}>
+							<FiX />
+						</button>
+						<TransactionForm transaction={transaction} />
+					</>
+				) : (
+					<>
+						<button onClick={() => setEditingMode(true)}>
+							<FiEdit />
+						</button>
 
-				{/* <img src={imgURL} /> */}
-				<p>{currency(total)}</p>
+						<h5>
+							{client.firstName} {client.lastName}
+							<p>{id}</p>
+						</h5>
+
+						{Object.entries(transaction.client).map(([k, v]) => (
+							<p>
+								{k}:{v}
+							</p>
+						))}
+
+						<hr />
+						{transaction.motorcycles.map((moto) => (
+							<ul>
+								{Object.entries(moto.motorcycle).map(([k, v]) => (
+									<li>
+										<p>{k}:{v}</p>
+									</li>
+								))}
+							</ul>
+						))}
+
+						{/* <p>{description}</p> */}
+
+						{/* <img src={imgURL} /> */}
+						<p>{currency(total)}</p>
+					</>
+				)}
 			</>
 		</DetailsModal>
 	);

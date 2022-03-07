@@ -1,23 +1,29 @@
 import { ErrorMessage, FieldArray, Form, Formik, FormikProps } from "formik";
 import { nanoid } from "nanoid";
 import { FiPlus, FiTrash } from "react-icons/fi";
-import { useAppContext } from "../../../../../context/AppContext";
-import Global from "../../../../../hooks/Global";
-import { currency, getMotoById } from "../../../../../utils/functions";
+import Global from "../../../../hooks/Global";
+import { currency } from "../../../../utils/functions";
 import {
-  IClient,
   IPartialTransaction,
   IPartialTransactionMotorcycle,
-} from "../../../../../utils/interfaces";
-import { transactionSchema } from "../../../../../utils/schemas";
+  ITransaction,
+} from "../../../../utils/interfaces";
+import { transactionSchema } from "../../../../utils/schemas";
 import DropdownField, {
   IDropdownOption,
-} from "../../../../shared/DropdownField";
-import NumberField from "../../../../shared/NumberField";
+} from "../../../shared/DropdownField";
+import NumberField from "../../../shared/NumberField";
 import "./create-transaction-form.scss";
 
-export default function CreateTransactionForm() {
-  const { clients, motorcycles, createTransaction } = Global;
+interface IProps {
+  transaction?: ITransaction;
+}
+
+export default function TransactionForm({ transaction }: IProps) {
+  const { clients, motorcycles, createTransaction, updateTransaction } = Global;
+
+  let transactionID = "";
+  if (transaction) transactionID = transaction.id;
 
   const clientOpts: IDropdownOption[] = [
     { id: "", name: "", value: "" },
@@ -49,21 +55,29 @@ export default function CreateTransactionForm() {
     <Formik
       initialValues={
         {
-          clientId: "",
-          motorcycles: [{ id: "", quantity: 1 }],
-          total: 0,
+          clientId: transaction?.client?.id || "",
+          motorcycles: transaction?.motorcycles
+            ? transaction?.motorcycles.map((item) => ({
+              id: item.motorcycle.id,
+              quantity: item.quantity,
+            }))
+            : [{ id: "", quantity: 1 }],
+          total: transaction?.total || 0,
         } as IPartialTransaction
       }
       validationSchema={transactionSchema}
       onSubmit={(values, actions) => {
-        console.log("createTransaction!", { values, actions });
+        // console.log("createTransaction!", { values, actions });
+
         const { resetForm } = actions;
 
-        createTransaction({
-          clientId: values.clientId,
-          motorcycles: values.motorcycles,
-          total: getTotal(values.motorcycles),
-        });
+
+        transactionID ? console.log('Update Transaction', { ...values }) :
+          createTransaction({
+            clientId: values.clientId,
+            motorcycles: values.motorcycles,
+            total: getTotal(values.motorcycles),
+          });
 
         resetForm();
       }}
@@ -90,24 +104,12 @@ export default function CreateTransactionForm() {
             {values.clientId ? (
               <FieldArray name="motorcycles">
                 {(arrayHelpers) => {
-                  // console.log({
-                  // 	arrayHelpers,
-                  // 	values,
-                  // });
-
                   return (
                     <div className="motorcycles-list">
                       {values?.motorcycles?.length > 0 ? (
                         <>
                           {values.motorcycles.map((moto, i) => (
                             <div key={nanoid()} className="transaction-item">
-                              {/* <h5>
-									{
-										motorcycleOpts.find(
-										opts =>
-											opts.id === values.motorcycles[i].id)?.name
-									}
-								</h5> */}
                               <div className="form-row">
                                 <DropdownField
                                   id={nanoid()}
