@@ -1,7 +1,6 @@
 import { IClient, IMotorcycle, ITransaction, IPartialClient, IPartialMotorcycle, IPartialTransaction } from "../utils/interfaces"
 
 export interface IGlobal {
-
 	clients: IClient[];
 	motorcycles: IMotorcycle[];
 	transactions: ITransaction[];
