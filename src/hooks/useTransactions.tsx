@@ -1,12 +1,7 @@
 import { nanoid } from 'nanoid';
-import {
-	useState,
-	useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import {
-	initialTransactions,
-} from '../utils/constants';
+import { initialTransactions } from '../utils/constants';
 import {
 	IClient,
 	IMotorcycle,
@@ -14,17 +9,23 @@ import {
 	ITransaction,
 } from '../utils/interfaces';
 
-
 const useTransactions = () => {
 	const [storedTransactions, setStoredTransactions] = useLocalStorage<
 		ITransaction[]
 	>('@transactions', []);
 
-	const getClient = (id: string) => (JSON.parse(localStorage.getItem('@clients') || '') as IClient[]).find(client => client.id === id)
-	const getMoto = (id: string) => (JSON.parse(localStorage.getItem('@motorcycles') || '') as IMotorcycle[]).find(moto => moto.id === id)
+	const getClient = (id: string) =>
+		(JSON.parse(localStorage.getItem('@clients') || '') as IClient[]).find(
+			client => client.id === id
+		);
+	const getMoto = (id: string) =>
+		(
+			JSON.parse(
+				localStorage.getItem('@motorcycles') || ''
+			) as IMotorcycle[]
+		).find(moto => moto.id === id);
 
 	const [transactions, setTransactions] = useState<ITransaction[]>([]);
-
 
 	const createTransaction = (transactionData: IPartialTransaction) => {
 		const newTransaction = buildCompleteTransaction(transactionData);
@@ -34,8 +35,14 @@ const useTransactions = () => {
 		setTransactions(updatedTransactions);
 	};
 
-	const updateTransaction = (transactionData: ITransaction) => {
-		console.log('update transaction', { transactionData });
+	const updateTransaction = (transactionData: IPartialTransaction) => {
+		const newTransaction = buildCompleteTransaction(transactionData);
+
+		setTransactions([
+			...transactions.map(trans =>
+				trans.id === transactionData.id ? newTransaction : trans
+			),
+		]);
 	};
 
 	const deleteTransaction = (id: string) => {
@@ -54,7 +61,7 @@ const useTransactions = () => {
 		}));
 
 		const result = {
-			id: nanoid(),
+			id: transactionData.id || nanoid(), // update || create
 			createdAt: new Date(),
 			client,
 			motorcycles,
@@ -65,11 +72,11 @@ const useTransactions = () => {
 			),
 		};
 
-		console.log('createTransaction', {
-			transactions,
-			transactionData,
-			result,
-		});
+		// console.log('createTransaction', {
+		// 	transactions,
+		// 	transactionData,
+		// 	result,
+		// });
 
 		return result;
 	};
@@ -77,12 +84,12 @@ const useTransactions = () => {
 	useEffect(() => {
 		setTransactions(
 			(storedTransactions.length && storedTransactions) ||
-			initialTransactions
+				initialTransactions
 		);
 	}, []);
 
 	useEffect(() => {
-		setStoredTransactions(transactions)
+		setStoredTransactions(transactions);
 	}, [transactions]);
 
 	return {
@@ -90,9 +97,7 @@ const useTransactions = () => {
 		createTransaction,
 		deleteTransaction,
 		updateTransaction,
-	}
+	};
+};
 
-
-}
-
-export default useTransactions
+export default useTransactions;

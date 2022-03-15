@@ -33,6 +33,7 @@ export interface ITransaction {
 
 // export type IPartialTransaction = Omit<ITransaction, 'id' | 'createdAt'>;
 export type IPartialTransaction = {
+	id?: string;
 	clientId: string;
 	motorcycles: IPartialTransactionMotorcycle[];
 	total: number;

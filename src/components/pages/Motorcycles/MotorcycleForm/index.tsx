@@ -1,6 +1,5 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
-import { useAppContext } from '../../../../context/AppContext';
 import Global from '../../../../hooks/Global';
 import { defaultMotoImgURL } from '../../../../utils/constants';
 import { IMotorcycle, IPartialMotorcycle } from '../../../../utils/interfaces';

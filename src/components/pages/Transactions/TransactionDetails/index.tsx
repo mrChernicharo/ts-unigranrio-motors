@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { FiEdit, FiTrash, FiX } from "react-icons/fi";
-import { currency } from "../../../../utils/functions";
-import { ITransaction } from "../../../../utils/interfaces";
-import DetailsModal from "../../../shared/DetailsModal";
-import TransactionForm from "../TransactionForm";
-import "./transaction-details.scss";
+import { useRef, useState } from 'react';
+import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
+import { currency } from '../../../../utils/functions';
+import { ITransaction } from '../../../../utils/interfaces';
+import DetailsModal from '../../../shared/DetailsModal';
+import TransactionForm from '../TransactionForm';
+import './transaction-details.scss';
 
 interface IProps {
 	transaction: ITransaction;
@@ -33,7 +33,10 @@ export default function TransactionDetails({
 						<button onClick={() => setEditingMode(false)}>
 							<FiX />
 						</button>
-						<TransactionForm transaction={transaction} />
+						<TransactionForm
+							transaction={transaction}
+							onSubmitted={onClose}
+						/>
 					</>
 				) : (
 					<>
@@ -53,17 +56,24 @@ export default function TransactionDetails({
 						))}
 
 						<hr />
-						{transaction.motorcycles.map((moto) => (
+						{transaction.motorcycles.map(moto => (
 							<ul>
-								{Object.entries(moto.motorcycle).map(([k, v]) => (
-									<li>
-										<p><span className="key">{k}</span>:{v}</p>
-									</li>
-								))}
+								{Object.entries(moto.motorcycle).map(
+									([k, v]) => (
+										<li>
+											<p>
+												<span className="key">{k}</span>
+												:{v}
+											</p>
+										</li>
+									)
+								)}
+								<br />
 							</ul>
 						))}
 
-						<p>{currency(total)}</p>
+						<p>TOTAL: {currency(total)}</p>
+						<br />
 					</>
 				)}
 			</>

@@ -1,4 +1,11 @@
-import { IClient, IMotorcycle, ITransaction, IPartialClient, IPartialMotorcycle, IPartialTransaction } from "../utils/interfaces"
+import {
+	IClient,
+	IMotorcycle,
+	ITransaction,
+	IPartialClient,
+	IPartialMotorcycle,
+	IPartialTransaction,
+} from '../utils/interfaces';
 
 export interface IGlobal {
 	clients: IClient[];
@@ -16,26 +23,40 @@ export interface IGlobal {
 	deleteMotorcycle: (id: string) => void;
 
 	createTransaction: (TransactionData: IPartialTransaction) => void;
-	updateTransaction: (TransactionData: ITransaction) => void;
+	updateTransaction: (TransactionData: IPartialTransaction) => void;
 	deleteTransaction: (id: string) => void;
 }
+
+export const setGlobalState = (globalData: IGlobal) => {
+	Global.clients = globalData.clients;
+	Global.createClient = globalData.createClient;
+	Global.deleteClient = globalData.deleteClient;
+	Global.updateClient = globalData.updateClient;
+	Global.motorcycles = globalData.motorcycles;
+	Global.createMotorcycle = globalData.createMotorcycle;
+	Global.deleteMotorcycle = globalData.deleteMotorcycle;
+	Global.updateMotorcycle = globalData.updateMotorcycle;
+	Global.transactions = globalData.transactions;
+	Global.createTransaction = globalData.createTransaction;
+	Global.deleteTransaction = globalData.deleteTransaction;
+	Global.updateTransaction = globalData.updateTransaction;
+};
 
 const Global = {
 	clients: [],
 	motorcycles: [],
 	transactions: [],
-	getClient: () => { },
-	createClient: () => { },
-	updateClient: () => { },
-	deleteClient: () => { },
-	getMoto: () => { },
-	createMotorcycle: () => { },
-	updateMotorcycle: () => { },
-	deleteMotorcycle: () => { },
-	createTransaction: () => { },
-	updateTransaction: () => { },
-	deleteTransaction: () => { },
+	getClient: () => {},
+	createClient: () => {},
+	updateClient: () => {},
+	deleteClient: () => {},
+	getMoto: () => {},
+	createMotorcycle: () => {},
+	updateMotorcycle: () => {},
+	deleteMotorcycle: () => {},
+	createTransaction: () => {},
+	updateTransaction: () => {},
+	deleteTransaction: () => {},
+} as IGlobal;
 
-} as IGlobal
-
-export default Global 
+export default Global;
