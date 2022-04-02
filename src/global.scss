@@ -93,6 +93,22 @@ button {
 	}
 }
 
+form {
+	margin: 0 auto;
+}
+
+input,
+select {
+	color: var(--alt-text);
+	background-color: var(--dark-bg);
+	outline-color: rgba(62, 130, 139, 0.3);
+	padding: 0.4rem;
+
+	::placeholder {
+		color: #31363f;
+	}
+}
+
 .App {
 	min-height: 100vh;
 	display: flex;
@@ -146,7 +162,7 @@ button {
 	position: fixed;
 	display: flex;
 	flex-direction: column;
-	align-items: end;
+	// align-items: end;
 	bottom: 2rem;
 	right: 2rem;
 
@@ -155,7 +171,7 @@ button {
 		border-radius: 8px;
 		background: #282c34;
 		box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
-		min-height: 300px;
+		min-width: 300px;
 		min-height: 400px;
 	}
 	// &.close {

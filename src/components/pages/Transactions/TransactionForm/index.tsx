@@ -124,11 +124,12 @@ export default function TransactionForm({ transaction, onSubmitted }: IProps) {
 																className="transaction-item"
 															>
 																<div className="form-row">
+																	{/* prettier-ignore */}
 																	<DropdownField
 																		id={nanoid()}
 																		name={`motorcycles[${i}].id`}
 																		placeholder="selecione motocicleta"
-																		label="Moto"
+																		label={`Moto ${i < 9 ? '0' + (i+1) : i+1}`}
 																		options={
 																			motorcycleOpts
 																		}
@@ -148,37 +149,55 @@ export default function TransactionForm({ transaction, onSubmitted }: IProps) {
 																		/>
 																	</DropdownField>
 
-																	{/* prettier-ignore */}
 																	<NumberField
-                                  id={nanoid()}
-                                  name={`motorcycles[${i}].quantity`}
-                                  label="Quantidade"
-                                  min={1}
-                                  handleBlur={handleBlur}
-                                  handleChange={handleChange}
-                                  value={values.motorcycles[i].quantity}
-                                />
-																</div>
+																		id={nanoid()}
+																		name={`motorcycles[${i}].quantity`}
+																		label="Quantidade"
+																		min={1}
+																		handleBlur={
+																			handleBlur
+																		}
+																		handleChange={
+																			handleChange
+																		}
+																		value={
+																			values
+																				.motorcycles[
+																				i
+																			]
+																				.quantity
+																		}
+																	/>
 
-																<button
-																	type="button"
-																	title="deletar item"
-																	onClick={() =>
-																		arrayHelpers.remove(
-																			i
-																		)
-																	}
-																>
-																	<FiTrash />
-																</button>
+																	<div
+																		style={{
+																			paddingTop: `1rem`,
+																		}}
+																	>
+																		<button
+																			type="button"
+																			title="deletar item"
+																			onClick={() =>
+																				arrayHelpers.remove(
+																					i
+																				)
+																			}
+																		>
+																			<FiTrash />
+																		</button>
+																	</div>
+																</div>
 															</div>
 														)
 													)}
 												</>
 											) : null}
-
 											<button
+												style={{
+													marginBlock: 10,
+												}}
 												type="button"
+												id="add-moto-btn"
 												onClick={() =>
 													arrayHelpers.push({
 														id: '',
@@ -188,6 +207,16 @@ export default function TransactionForm({ transaction, onSubmitted }: IProps) {
 											>
 												<FiPlus />
 											</button>
+											<label
+												htmlFor="add-moto-btn"
+												style={{
+													paddingLeft: 5,
+													fontSize: '11px',
+													color: 'goldenrod',
+												}}
+											>
+												adicionar moto
+											</label>
 										</div>
 									);
 								}}

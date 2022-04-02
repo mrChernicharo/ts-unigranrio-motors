@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { useRef, useState } from 'react';
 import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
 import { toCurrency } from '../../../../utils/functions';
@@ -49,21 +50,21 @@ export default function TransactionDetails({
 							<p>{id}</p>
 						</h5>
 
-						{Object.entries(transaction.client).map(([k, v]) => (
-							<p>
+						{Object.entries(client).map(([k, v]) => (
+							<p key={nanoid()}>
 								<span className="key">{k}</span>:{v}
 							</p>
 						))}
 
 						<hr />
-						{transaction.motorcycles.map(moto => {
+						{motorcycles.map(moto => {
 							const {
 								motorcycle: { name, price, year, imgURL },
 								quantity,
 							} = moto;
 
 							return (
-								<ul>
+								<ul key={nanoid()}>
 									<li className="transaction-li">
 										<p>Mototocicleta: {name}</p>
 

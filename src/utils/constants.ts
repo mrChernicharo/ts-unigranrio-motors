@@ -48,7 +48,7 @@ export const initialMotorcycles: IMotorcycle[] = [
 		name: 'Avenger',
 		description: 'Comedora de asfalto',
 		year: 2021,
-		price: 30_000,
+		price: 19_000,
 		imgURL: imgURLs.dark2,
 	},
 	{
@@ -64,7 +64,7 @@ export const initialMotorcycles: IMotorcycle[] = [
 		name: 'Pathfinder',
 		description: 'Protótipo ultra high-tech',
 		year: 2020,
-		price: 16_000,
+		price: 32_000,
 		imgURL: imgURLs.dark,
 	},
 ];
