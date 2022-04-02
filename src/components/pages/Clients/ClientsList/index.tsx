@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { useAppContext } from '../../../../context/AppContext';
 import Global from '../../../../hooks/Global';
 import { IClient } from '../../../../utils/interfaces';
 import ClientItem from './ClientItem';

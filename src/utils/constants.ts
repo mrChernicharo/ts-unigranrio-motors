@@ -17,6 +17,8 @@ const imgURLs = {
 		'https://i1.s3stores.com/images/BTU/preview_b707d94344722ea55c062c6a8db24b56.jpeg',
 	bgPathfinder:
 		'https://m.media-amazon.com/images/I/717woRDSH-L._AC_SL1200_.jpg',
+	dark: 'https://images.unsplash.com/photo-1607091083645-31f4e28dc9af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+	dark2: 'https://i.pinimg.com/originals/0e/40/4d/0e404d2b8da7c94e440ae492f12e9e6a.jpg',
 };
 
 export const initialClients: IClient[] = [
@@ -43,11 +45,11 @@ export const initialClients: IClient[] = [
 export const initialMotorcycles: IMotorcycle[] = [
 	{
 		id: 'DLGTfaaGz95LFr9VatMxa',
-		name: 'Kawasaki',
-		description: 'Comedora de lama',
+		name: 'Avenger',
+		description: 'Comedora de asfalto',
 		year: 2021,
 		price: 30_000,
-		imgURL: imgURLs.kawasaki,
+		imgURL: imgURLs.dark2,
 	},
 	{
 		id: 's49MCiMAU68uDBuz2_MiA',
@@ -60,10 +62,10 @@ export const initialMotorcycles: IMotorcycle[] = [
 	{
 		id: 'LcQUHTmk_A1YQhufVWQdJ',
 		name: 'Pathfinder',
-		description: 'MotoTec 49cc 2-Stroke GT Gas Powered Pocket Bike Red',
+		description: 'Protótipo ultra high-tech',
 		year: 2020,
 		price: 16_000,
-		imgURL: imgURLs.harley,
+		imgURL: imgURLs.dark,
 	},
 ];
 

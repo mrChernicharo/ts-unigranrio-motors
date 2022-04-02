@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useAppContext } from '../../../../context/AppContext';
 import Global from '../../../../hooks/Global';
 import { IMotorcycle } from '../../../../utils/interfaces';
 import MotorcycleItem from './MotorcycleItem';

@@ -1,11 +1,9 @@
-import { useAppContext } from '../../../context/AppContext';
 import MotorcyclesList from './MotorcyclesList';
 import CreateMotorcycle from './CreateMotorcycle';
 import Global from '../../../hooks/Global';
 
 const Motorcycles = () => {
-	// const { motorcycles } = useAppContext();
-	const { motorcycles } = Global
+	const { motorcycles } = Global;
 	return (
 		<div className="page-container">
 			<h1>Motocicletas</h1>
