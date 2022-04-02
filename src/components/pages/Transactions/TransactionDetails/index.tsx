@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
-import { currency } from '../../../../utils/functions';
+import { toCurrency } from '../../../../utils/functions';
 import { ITransaction } from '../../../../utils/interfaces';
 import DetailsModal from '../../../shared/DetailsModal';
 import TransactionForm from '../TransactionForm';
@@ -24,7 +24,7 @@ export default function TransactionDetails({
 	return (
 		<DetailsModal onClose={onClose}>
 			<>
-				<button onClick={() => onDelete(id)}>
+				<button onClick={() => onDelete(id)} title="deletar venda">
 					<FiTrash />
 				</button>
 
@@ -56,23 +56,37 @@ export default function TransactionDetails({
 						))}
 
 						<hr />
-						{transaction.motorcycles.map(moto => (
-							<ul>
-								{Object.entries(moto.motorcycle).map(
-									([k, v]) => (
-										<li>
-											<p>
-												<span className="key">{k}</span>
-												:{v}
-											</p>
-										</li>
-									)
-								)}
-								<br />
-							</ul>
-						))}
+						{transaction.motorcycles.map(moto => {
+							const {
+								motorcycle: { name, price, year, imgURL },
+								quantity,
+							} = moto;
 
-						<p>TOTAL: {currency(total)}</p>
+							return (
+								<ul>
+									<li className="transaction-li">
+										<p>Mototocicleta: {name}</p>
+
+										<div className="moto-details">
+											<img
+												className="transaction-img"
+												src={imgURL}
+												alt="moto"
+											/>
+											<div>
+												<p>
+													valor: {toCurrency(price)}
+												</p>
+												<p>ano: {year}</p>
+												<p>qtd. {quantity}x</p>
+											</div>
+										</div>
+									</li>
+								</ul>
+							);
+						})}
+
+						<p>TOTAL: {toCurrency(total)}</p>
 						<br />
 					</>
 				)}

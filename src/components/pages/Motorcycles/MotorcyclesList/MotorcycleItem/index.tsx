@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IMotorcycle } from '../../../../../utils/interfaces';
 import './motorcycle.scss';
 import MotorcycleDetails from '../../MotorcycleDetails';
+import { toCurrency } from '../../../../../utils/functions';
 
 interface IMotorcycleProps {
 	motorcycle: IMotorcycle;
@@ -37,7 +38,7 @@ export default function MotorcycleItem({
 				<p>{description}</p>
 
 				<img src={imgURL} />
-				<p>R${price}</p>
+				<p>{toCurrency(price)}</p>
 			</div>
 			{isModalOpen && (
 				<MotorcycleDetails

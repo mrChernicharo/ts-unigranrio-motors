@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '../../../context/AppContext';
 import { ITransaction } from '../../../utils/interfaces';
 import CreateTransaction from './CreateTransaction';
 import TransactionList from './TransactionsList';

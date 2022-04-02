@@ -18,7 +18,9 @@ export default function CreateTransaction() {
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 
-			{isFormShown && <TransactionForm />}
+			{isFormShown && (
+				<TransactionForm onSubmitted={() => setIsFormShown(false)} />
+			)}
 		</div>
 	);
 }

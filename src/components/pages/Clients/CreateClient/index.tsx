@@ -14,11 +14,17 @@ export default function CreateClient() {
 			<button
 				className={`new-form-button ${isFormShown ? 'close' : 'open'}`}
 				onClick={handleCreateClientClick(isFormShown)}
+				title="cadastrar novo cliente"
 			>
 				{isFormShown ? <FiX /> : <FiPlus />}
 			</button>
 
-			{isFormShown && <CreateClientForm mode="create" />}
+			{isFormShown && (
+				<CreateClientForm
+					mode="create"
+					onSubmitted={() => setIsFormShown(false)}
+				/>
+			)}
 		</div>
 	);
 }

@@ -2,7 +2,7 @@ import { ErrorMessage, FieldArray, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
 import { FiPlus, FiTrash } from 'react-icons/fi';
 import Global from '../../../../hooks/Global';
-import { currency } from '../../../../utils/functions';
+import { toCurrency } from '../../../../utils/functions';
 import {
 	IPartialTransaction,
 	IPartialTransactionMotorcycle,
@@ -162,6 +162,7 @@ export default function TransactionForm({ transaction, onSubmitted }: IProps) {
 
 																<button
 																	type="button"
+																	title="deletar item"
 																	onClick={() =>
 																		arrayHelpers.remove(
 																			i
@@ -198,7 +199,8 @@ export default function TransactionForm({ transaction, onSubmitted }: IProps) {
 
 						<div>
 							<p>
-								Total: {currency(getTotal(values.motorcycles))}
+								Total:{' '}
+								{toCurrency(getTotal(values.motorcycles))}
 							</p>
 						</div>
 					</Form>

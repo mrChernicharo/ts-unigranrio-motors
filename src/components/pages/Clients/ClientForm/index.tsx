@@ -1,6 +1,5 @@
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { nanoid } from 'nanoid';
-import { useAppContext } from '../../../../context/AppContext';
 import Global from '../../../../hooks/Global';
 import { IClient, IPartialClient } from '../../../../utils/interfaces';
 import { clientSchema } from '../../../../utils/schemas';
@@ -8,9 +7,14 @@ import TextField from '../../../shared/TextField';
 
 interface IClientFormProps {
 	mode: 'create' | 'edit';
+	onSubmitted: () => void;
 	client?: IClient;
 }
-export default function CreateClientForm({ mode, client }: IClientFormProps) {
+export default function CreateClientForm({
+	mode,
+	onSubmitted,
+	client,
+}: IClientFormProps) {
 	const { createClient, updateClient } = Global;
 
 	let clientID = '';
@@ -33,6 +37,8 @@ export default function CreateClientForm({ mode, client }: IClientFormProps) {
 					if (mode === 'create') createClient(values);
 					if (mode === 'edit')
 						updateClient({ ...values, id: clientID });
+
+					onSubmitted();
 				}}
 				enableReinitialize={true}
 			>

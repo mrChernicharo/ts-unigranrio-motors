@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { FiEdit, FiTrash, FiX } from 'react-icons/fi';
-import { currency } from '../../../utils/functions';
+import { toCurrency } from '../../../utils/functions';
 import { ITransaction } from '../../../utils/interfaces';
 
 interface IProps {
@@ -12,12 +12,13 @@ const DetailsModal = ({ onClose, children }: IProps) => {
 	return (
 		<>
 			<div className="app-modal">
-				<button onClick={onClose}>
-					<FiX />
-				</button>
+				<header>
+					<button onClick={onClose}>
+						<FiX />
+					</button>
+				</header>
 
-				<hr />
-				{children}
+				<main>{children}</main>
 			</div>
 
 			<div className="app-modal-overlay" onClick={onClose}></div>

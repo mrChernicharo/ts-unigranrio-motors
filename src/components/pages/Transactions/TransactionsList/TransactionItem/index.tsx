@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { currency } from '../../../../../utils/functions';
+import { toCurrency, toDate } from '../../../../../utils/functions';
 import { ITransaction } from '../../../../../utils/interfaces';
 import './transaction.scss';
 import TransactionDetails from '../../TransactionDetails';
@@ -12,7 +12,7 @@ interface IProps {
 
 export default function TransactionItem({ transaction, onDelete }: IProps) {
 	const { id, client, createdAt, total, motorcycles } = transaction;
-	const { firstName, lastName } = client;
+	const { firstName = '', lastName = '' } = client;
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -48,12 +48,12 @@ export default function TransactionItem({ transaction, onDelete }: IProps) {
 							return (
 								<li key={nanoid()}>
 									<p>
-										{name} {currency(price)}
+										{name} {toCurrency(price)}
 										{quantity > 1 && (
 											<span>
 												{
 													/* prettier-ignore */
-													`( x${quantity} ${currency(price * quantity)} )`
+													`( x${quantity} ${toCurrency(price * quantity)} )`
 												}
 											</span>
 										)}
@@ -62,14 +62,10 @@ export default function TransactionItem({ transaction, onDelete }: IProps) {
 							);
 						})}
 				</ul>
-				<p>Total: {currency(total)}</p>
+				<p>Total: {toCurrency(total)}</p>
 
 				<hr />
-				<p>
-					Data Pedido:{' '}
-					{new Date(createdAt).toLocaleDateString('pt-BR')} às{' '}
-					{new Date(createdAt).toLocaleTimeString('pt-BR')}
-				</p>
+				<p>Data Pedido: {toDate(createdAt)}</p>
 
 				<p>Id Pedido: {id}</p>
 			</div>

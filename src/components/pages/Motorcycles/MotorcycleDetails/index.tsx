@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FiEdit, FiEdit2, FiEdit3, FiTrash, FiX } from 'react-icons/fi';
+import { toCurrency } from '../../../../utils/functions';
 import { IMotorcycle } from '../../../../utils/interfaces';
+import DetailsModal from '../../../shared/DetailsModal';
 import MotorcycleForm from '../MotorcycleForm';
 import './motorcycle-details.scss';
 
@@ -19,40 +21,34 @@ export default function MotorcycleDetails({
 	const [editingMode, setEditingMode] = useState(false);
 
 	return (
-		<>
-			<div className="app-modal">
-				<button onClick={onClose}>
-					<FiX />
-				</button>
+		<DetailsModal onClose={onClose}>
+			<button onClick={() => onDelete(id)} title="deletar motocicleta">
+				<FiTrash />
+			</button>
 
-				<button onClick={() => onDelete(id)}>
-					<FiTrash />
-				</button>
+			{editingMode ? (
+				<>
+					<button onClick={() => setEditingMode(false)}>
+						<FiX />
+					</button>
 
-				{editingMode ? (
-					<>
-						<button onClick={() => setEditingMode(false)}>
-							<FiX />
-						</button>
-						<MotorcycleForm motorcycle={motorcycle} />
-					</>
-				) : (
-					<>
-						<button onClick={() => setEditingMode(true)}>
-							<FiEdit />
-						</button>
-						<h5>
-							{name}
-							<p>{year}</p>
-						</h5>
-						<p>{description}</p>
+					<MotorcycleForm motorcycle={motorcycle} />
+				</>
+			) : (
+				<>
+					<button onClick={() => setEditingMode(true)}>
+						<FiEdit />
+					</button>
+					<h5>
+						{name}
+						<p>{year}</p>
+					</h5>
+					<p>{description}</p>
 
-						<img src={imgURL} />
-						<p>R${price}</p>
-					</>
-				)}
-			</div>
-			<div className="app-modal-overlay" onClick={onClose}></div>
-		</>
+					<img src={imgURL} />
+					<p>{toCurrency(price)}</p>
+				</>
+			)}
+		</DetailsModal>
 	);
 }

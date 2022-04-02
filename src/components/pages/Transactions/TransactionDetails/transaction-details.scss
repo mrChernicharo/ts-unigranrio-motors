@@ -14,6 +14,19 @@
 // 	transform: translate(calc(50vw - calc(var(--modal-width) / 2)), 50%);
 // }
 
-span.key {
-  color: var(--accent);
+li.transaction-li {
+	// border: 1px solid;
+	box-shadow: 23px 23px 45px #1f2229, -23px -23px 45px #31363f;
+	border-radius: 12px;
+	padding: 0.5rem 1.5rem;
+	margin-bottom: 1rem;
+
+	.moto-details {
+		// border: 1px solid;
+		display: flex;
+		justify-content: space-between;
+	}
+	img.transaction-img {
+		height: 60px;
+	}
 }
